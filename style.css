@@ -3,38 +3,52 @@
   --font-main: 'sf_pro_displayregular', Arial, sans-serif;
   --font-heading: 'media_sans_semicondensedRg', Arial, sans-serif;
   --font-heading2: 'media_sans_extendedregular', Arial, sans-serif;
+
   --color-bg: #fff;
   --color-text: #111;
   --color-accent: #000;
-  /* black for light mode */
   --color-gray: #686868;
-  /* gray for light mode */
   --color-underline: #000;
 }
 
 /* ====== Reset ====== */
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 /* ====== Base Styles ====== */
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: var(--font-main);
   color: var(--color-text);
   background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background 0.3s, color 0.3s;
+  line-height: 1.45;
+}
+
+/* small accessible focus style */
+:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.12);
+  outline-offset: 2px;
 }
 
 /* ====== Dark Mode ====== */
+/* Toggle by adding .dark-mode on body */
 body.dark-mode {
   --color-bg: #121212;
   --color-text: #fff;
   --color-accent: #fff;
-  /* white for dark mode */
   --color-gray: #bbb;
-  /* lighter gray for dark mode */
   --color-underline: #fff;
 }
 
@@ -58,6 +72,9 @@ body.dark-mode .nav-links a::after {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
+  gap: 1rem;
+  z-index: 20;
+  background: transparent;
 }
 
 .logo a {
@@ -71,6 +88,7 @@ body.dark-mode .nav-links a::after {
   display: none;
 }
 
+/* Nav links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -89,10 +107,12 @@ body.dark-mode .nav-links a::after {
   transition: color 0.2s;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a:focus {
   color: var(--color-accent);
 }
 
+/* underline animation */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -104,14 +124,17 @@ body.dark-mode .nav-links a::after {
   transition: width 0.3s;
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a:focus::after {
   width: 100%;
 }
 
+/* dark-mode hover tweak */
 body.dark-mode .nav-links a:hover {
   color: #fff;
 }
 
+/* ====== Nav actions (theme toggle + contact) ====== */
 .nav-actions {
   display: flex;
   align-items: center;
@@ -121,7 +144,7 @@ body.dark-mode .nav-links a:hover {
 /* ====== Theme Toggle Button ====== */
 .theme-toggle {
   background: none;
-  border: 1px solid black;
+  border: 1px solid var(--color-accent);
   padding: 0.4rem;
   border-radius: 6px;
   cursor: pointer;
@@ -133,6 +156,7 @@ body.dark-mode .nav-links a:hover {
 .theme-toggle img {
   width: 20px;
   height: 20px;
+  display: block;
 }
 
 body.dark-mode .theme-toggle img {
@@ -141,188 +165,272 @@ body.dark-mode .theme-toggle img {
 
 /* ====== Contact Button ====== */
 .contact-btn {
-  background: #111;
+  background: var(--color-accent);
   color: #fff;
   font-size: 1rem;
   padding: 0.5rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 500;
+  border: none;
+  cursor: pointer;
 }
 
-/* ====== Hero Section ====== */
+/* dark-mode tweaks for navbar controls */
+body.dark-mode .theme-toggle {
+  border-color: #fff;
+}
+
+body.dark-mode .contact-btn {
+  background: #fff;
+  color: #000;
+}
+
+body.dark-mode .nav-links a:hover {
+  color: #fff;
+}
+
+
+/* =========================
+   Hero Section (cleaned)
+   ========================= */
+
+/* Colors / vars */
+:root {
+  --black: #111;
+  --muted: #888;
+  --fade-height: 200px;
+  /* replace if needed */
+}
+
+/* ---------- Container ---------- */
 .hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* full viewport hero */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-top: 2rem;
-  position: relative;
   overflow: hidden;
 }
 
-.hero::after,
+/* ---------- Intro / Location (top layer) ---------- */
+.hero .intro,
+.hero .location {
+  color: var(--muted);
+  font-size: 1.25rem;
+  z-index: 6;
+  /* above image & fade */
+  margin: 0.6rem 0;
+}
+
+/* ---------- Headings / Text layers ---------- */
+/* bold (front) */
+#hero-bold,
+.bold-text {
+  font-family: var(--font-heading);
+  color: var(--black);
+  line-height: 1;
+  z-index: 6;
+  /* sits above image & fade */
+  margin: 0;
+  font-size: clamp(6rem, 12vw, 14rem);
+  letter-spacing: 0.05em; /* Adds space between characters */
+
+}
+
+/* outline (behind image) */
+#hero-outline,
+.outline-text {
+  font-family: var(--font-heading);
+  color: transparent;
+  -webkit-text-stroke: 0.1rem #000;
+  /* visible outline */
+  line-height: 1;
+  margin: 0;
+  z-index: 2;
+  /* behind image */
+  font-size: clamp(4rem, 10vw, 12rem);
+  letter-spacing: 0.05em; /* Adds space between characters */
+}
+
+/* ---------- Hero Image (middle layer) ---------- */
+.hero-img {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 3;
+  /* between outline and bold */
+  max-height: 90vh;
+  /* prevents overflowing tall images */
+  height: auto;
+  width: auto;
+  max-width: 35vw;
+  /* keeps the image proportional and not too wide */
+  object-fit: contain;
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* ---------- Bottom Fade (over image, under text) ---------- */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: var(--fade-height);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+  z-index: 4;
+  /* hides the image bottom slightly */
+  pointer-events: none;
+}
+
 body.dark-mode .hero::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 40%;
+  height: var(--fade-height);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #000000);
+  z-index: 4;
+  /* hides the image bottom slightly */
   pointer-events: none;
-  z-index: 1;
 }
 
-.hero .intro {
-  color: #888;
-  font-size: 24px;
-  margin-bottom: 1.2rem;
-  padding-top: 2%;
-  z-index: 5;
-}
-
-.hero h1 {
-  font-size: 230px;
-  font-family: var(--font-heading);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -2%;
-}
-
-.bold-text {
-  font-weight: 900;
-  color: #111;
-  display: block;
-  margin: 5%;
-  letter-spacing: 2px;
-}
-
-body.dark-mode .bold-text {
-  color: #fff;
-}
-
-.outline-text {
-  font-weight: 900;
-  color: transparent;
-   -webkit-text-stroke: 1px #000;
-  font-family: var(--font-heading);
-  display: block;
-  opacity: 0.9;
-  letter-spacing: 2px;
-  margin-top: -45px;
-}
-
-body.dark-mode .outline-text {
-  -webkit-text-stroke: 0.1px #fff;
-}
-
-.location {
-  color: #888;
-  position: relative;
-  font-size: 24px;
-  margin-bottom: 1.2rem;
-  padding-top: 2%;
-  z-index: 5;
-  right: 26%;
-}
-
-.hero-img {
-  max-width: 340px;
-  width: 100%;
-  object-fit: cover;
-  opacity: 0.95;
-  position: relative;
-  bottom: 150px;
-  z-index: 3;
-  margin: -40px 0 -40px 0;
-}
-
-/* ====== Hero Buttons ====== */
+/* ---------- Buttons (top layer) ---------- */
 .hero-buttons {
   display: flex;
   gap: 16px;
-  margin-top: -2px;
-  z-index: 5;
-  position: relative;
-  left: 23%;
-
+  z-index: 6;
+  margin-top: 2rem;
+  justify-content: center;
 }
 
 .btn {
-  padding: 14px 36px;
-  font-size: 1.2rem;
+  padding: 12px 34px;
+  font-size: 1rem;
   border-radius: 8px;
-  border: 2px solid #111;
-  font-weight: 600;
+  border: 2px solid var(--black);
   background: #fff;
-  color: #111;
-  cursor: pointer;
+  color: var(--black);
   text-decoration: none;
-  transition: background 0.2s, color 0.2s, border 0.2s;
+  cursor: pointer;
 }
 
+/* variants */
 .btn.dark {
-  background: #111;
+  background: var(--black);
   color: #fff;
 }
 
-.btn.dark:hover {
-  background: #222;
+.btn.light {
+  background: transparent;
 }
 
-.btn.light:hover {
-  background: #f5f5f5;
-}
-
-body.dark-mode .btn.light {
-  background: #fff;
-  color: #111;
-  border: 2px solid #bbb;
-}
-
-body.dark-mode .btn.light:hover {
-  background: #f5f5f5;
-}
-
-body.dark-mode .btn.dark {
-  border: 2px solid #fff;
-}
-
-
-body.dark-mode .footer-content,
-body.dark-mode .footer-content a {
-  color: #bbb;
-  border-bottom-color: #444;
-}
-
-body.dark-mode .footer-content a:hover {
+/* ---------- Dark-mode small tweaks (if you use dark mode) ---------- */
+body.dark-mode .bold-text,
+body.dark-mode #hero-bold {
   color: #fff;
-  border-bottom: 1px solid #fff;
 }
 
-/* ====== Layer Positioning ====== */
-#hero-bold {
-  z-index: 4;
+body.dark-mode .outline-text,
+body.dark-mode #hero-outline {
+  -webkit-text-stroke: 1.5px #fff;
 }
 
-#hero-img {
-  z-index: 3;
-  margin: -40px 0;
+/* ---------- Responsive adjustments ---------- */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+    height: auto;
+    /* allow scrolling on small screens */
+  }
+
+  /* scale text and image down */
+  #hero-bold,
+  #hero-outline,
+  .bold-text,
+  .outline-text {
+    font-size: clamp(1.6rem, 12vw, 3rem);
+  }
+
+  .hero-img {
+    max-width: 50vw;
+    max-height: 60vh;
+  }
+
+  .hero-buttons {
+    margin-top: 1.2rem;
+    gap: 10px;
+  }
+
+  .hero .intro,
+  .hero .location {
+    font-size: 1rem;
+  }
 }
 
-#hero-outline {
-  z-index: 2;
+/* - Adjust --font-heading, --fade-height, and .hero-img max-width to taste.
+- If you want the image slightly larger, increase .hero-img max-width (e.g., 40vw).
+---------------------------------------- */
+
+
+/* =========================
+   Fonts (keep these at top)
+   ========================= */
+@font-face {
+  font-family: 'media_sans_extendedregular';
+  src: url('fonts/mediasansextended-regular-trial-bf63c7546b4aef3-webfont.woff2') format('woff2'),
+    url('fonts/mediasansextended-regular-trial-bf63c7546b4aef3-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: 'media_sans_semicondensedRg';
+  src: url('fonts/mediasanssemicondensed-regular-trial-bf63c75479c7708-webfont.woff2') format('woff2'),
+    url('fonts/mediasanssemicondensed-regular-trial-bf63c75479c7708-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* ===== Responsiveness ===== */
+@font-face {
+  font-family: 'sf_pro_displayregular';
+  src: url('fonts/sfprodisplayregular-webfont.woff2') format('woff2'),
+    url('fonts/sfprodisplayregular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   Responsiveness
+   (mobile / tablet / small-phone)
+   ========================= */
+
+/* Hide hamburger by default (desktop) */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+}
 
 /* ===== Mobile Devices (≤ 768px) ===== */
 @media (max-width: 768px) {
+
+  /* Navbar layout */
   .navbar {
     flex-direction: row;
     justify-content: space-between;
@@ -331,27 +439,24 @@ body.dark-mode .footer-content a:hover {
     position: relative;
   }
 
-  /* Logo stays on left, menu icon moves to right */
+  /* Logo stays left */
   .logo {
     order: 1;
+  }
+
+  /* Theme toggle and menu order */
+  .theme-toggle {
+    order: 2;
+    margin-left: 10px;
   }
 
   .menu-toggle {
     order: 3;
     display: block;
-    font-size: 1.8rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-text);
+    /* show hamburger on mobile */
   }
 
-  .theme-toggle {
-    order: 2;
-    margin-right: auto;
-    margin-left: 10px;
-  }
-
+  /* Mobile nav panel */
   .nav-links {
     display: none;
     flex-direction: column;
@@ -359,10 +464,11 @@ body.dark-mode .footer-content a:hover {
     background: var(--color-bg);
     position: absolute;
     top: 60px;
-    right: 0;
+    left: 0;
+    /* consistent placement */
     width: 100%;
     padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
     z-index: 999;
   }
 
@@ -370,9 +476,9 @@ body.dark-mode .footer-content a:hover {
     display: flex;
   }
 
+  /* Hero text sizing for mobile */
   .hero h1 {
     font-size: clamp(42px, 7vw, 64px);
-    /* Smaller for very small screens */
     text-align: center;
   }
 
@@ -383,6 +489,7 @@ body.dark-mode .footer-content a:hover {
     right: 0;
   }
 
+  /* Buttons stack on mobile */
   .hero-buttons {
     flex-direction: column;
     align-items: center;
@@ -395,9 +502,18 @@ body.dark-mode .footer-content a:hover {
     max-width: 320px;
     text-align: center;
   }
+
+  /* Slight spacing tweaks for text overlap */
+  .bold-text {
+    margin: 0;
+  }
+
+  .outline-text {
+    margin-top: -20px;
+  }
 }
 
-/* ===== Medium Tablets / Small Laptops (≤1135px) ===== */
+/* ===== Medium Tablets / Small Laptops (≤ 1135px and ≥ 769px) ===== */
 @media (max-width: 1135px) and (min-width: 769px) {
   .hero h1 {
     font-size: clamp(72px, 8vw, 110px);
@@ -407,7 +523,7 @@ body.dark-mode .footer-content a:hover {
     padding: 12px 20px;
   }
 
-  /* Keep menu icon hidden for tablet sizes */
+  /* Keep menu icon hidden for this range (tablet / small laptop) */
   .menu-toggle {
     display: none;
   }
@@ -417,7 +533,6 @@ body.dark-mode .footer-content a:hover {
 @media (max-width: 480px) {
   .hero h1 {
     font-size: 40px;
-    /* Extra small for <480px */
   }
 
   .hero .intro,
@@ -428,86 +543,4 @@ body.dark-mode .footer-content a:hover {
   .nav-links a {
     font-size: 0.9rem;
   }
-}
-
-/* Hamburger hidden on desktop */
-.menu-toggle {
-  display: none;
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-text);
-}
-
-/* Mobile view: show hamburger, hide nav links */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--color-bg);
-    position: absolute;
-    top: 60px;
-    /* just below navbar */
-    left: 0;
-    width: 100%;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-
-  .nav-links.show {
-    display: flex;
-  }
-}
-
-
-/* Hidden on desktop */
-.menu-toggle {
-  display: none;
-}
-
-/* Show only on mobile */
-@media (max-width: 768px) {
-  .bold-text {
-    margin: 0;
-  }
-
-  .outline-text {
-    margin-top: -20px;
-    /* smaller overlap for smaller font */
-  }
-}
-
-/* ===== Fonts ===== */
-@font-face {
-  font-family: 'media_sans_extendedregular';
-  src: url('fonts/mediasansextended-regular-trial-bf63c7546b4aef3-webfont.woff2') format('woff2'),
-    url('fonts/mediasansextended-regular-trial-bf63c7546b4aef3-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-
-}
-
-@font-face {
-  font-family: 'media_sans_semicondensedRg';
-  src: url('fonts/mediasanssemicondensed-regular-trial-bf63c75479c7708-webfont.woff2') format('woff2'),
-    url('fonts/mediasanssemicondensed-regular-trial-bf63c75479c7708-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-
-}
-
-@font-face {
-  font-family: 'sf_pro_displayregular';
-  src: url('fonts/sfprodisplayregular-webfont.woff2') format('woff2'),
-    url('fonts/sfprodisplayregular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-
 }
