@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuber Bassi - Portfolio</title>
+    <title>Kuber Bassi - Technology & Creativity - India</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,11 +37,13 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="container"></div>
+        <div class="intro_content-wrapper"></div>
         <p class="intro" id="hero-intro">👋 Hi, my name is Kuber Bassi and I am an innovator in</p>
         <h1>
             <span class="bold-text" id="hero-bold">Technology</span>
             <span class="outline-text" id="hero-outline">& Creativity</span>
-            <!-- <img src="Kuber.png" alt="Kuber Bassi" class="hero-img" id="hero-img"> -->
+            <img src="Kuber.png" alt="Kuber Bassi" class="hero-img" id="hero-img">
         </h1>
         <p class="location" id="hero-location">Based in New Delhi, India</p>
         <div class="hero-buttons" id="hero-buttons">
@@ -50,49 +52,31 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <!-- <section id="about">
-        <h2>About Me</h2>
-        <p>Welcome to my portfolio! I am Kuber Bassi, a passionate innovator in technology and creativity.</p>
-    </section> -->
-
-    <!-- Projects Section -->
-    <!-- <section id="projects">
-        <h2>My Projects</h2>
-        <p>Here are some of the projects I've worked on:</p>
-    </section> -->
-
-    <!-- Contact Section -->
-    <!-- <section id="contact">
-        <h2>Contact Me</h2>
-        <p>If you'd like to get in touch, feel free to reach out!</p>
-    </section> -->
-
     <!-- ===== Menu Selector ===== -->
     <script>
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
 
-  // Toggle menu on button click
-  menuToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // prevent click from bubbling to document
-    navLinks.classList.toggle('show');
-  });
+        // Toggle menu on button click
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // prevent click from bubbling to document
+            navLinks.classList.toggle('show');
+        });
 
-  // Close menu when clicking anywhere outside
-  document.addEventListener('click', (e) => {
-    if (navLinks.classList.contains('show') && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('show');
-    }
-  });
+        // Close menu when clicking anywhere outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('show') && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('show');
+            }
+        });
 
-  // Close menu when clicking a menu link
-  navLinks.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      navLinks.classList.remove('show');
-    }
-  });
-</script>
+        // Close menu when clicking a menu link
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('show');
+            }
+        });
+    </script>
 
 
     <!-- Theme Toggle Script -->
@@ -101,14 +85,6 @@
             document.body.classList.toggle('dark-mode');
         };
     </script>
-
-    <!-- Minimal Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <span>&copy; 2025 Kuber Bassi</span>
-            <a href="mailto:kuberbassi2007@gmail.com">Contact</a>
-        </div>
-    </footer>
 </body>
 
 </html>
