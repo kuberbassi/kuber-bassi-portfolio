@@ -82,6 +82,8 @@ body.dark-mode .nav-links a::after {
   font-weight: bold;
   text-decoration: none;
   color: inherit;
+  font-family: var(--font-heading);
+  letter-spacing: 2px;
 }
 
 .logo a::after {
@@ -543,4 +545,33 @@ body.dark-mode #hero-outline {
   .nav-links a {
     font-size: 0.9rem;
   }
+}
+
+/* ================================================================== */
+
+.about h2{
+  font-size: 150px;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+.projects h2{
+  font-size: 150px;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+.contact h2{
+  font-size: 150px;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  text-align: center;
+  letter-spacing: 5px;
 }
