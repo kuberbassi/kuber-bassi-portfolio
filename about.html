@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuber Bassi - Technology & Creativity - India</title>
-    <!-- For PNG favicon -->
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- main stylesheet (paste the cleaned CSS into this file) -->
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- NOTE: Using a local/custom font via @font-face in style.css -->
 </head>
+
 <body>
+
     <!-- Navbar -->
     <header class="navbar">
         <div class="logo"><a href="/index.html">Kuber Bassi</a></div>
@@ -33,43 +35,53 @@
         </div>
     </header>
 
-    <!-- ABOUT -->
+    <!-- About Section -->
     <section class="about" id="about">
         <h2>About</h2>
         <p>Learn more about my background and experience.</p>
     </section>
 
-    <!-- Menu Toggle Script (keeps original behavior) -->
+    <!-- Scripts -->
     <script>
+        // Mobile Menu Toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', (e) => {
+            menuToggle.addEventListener('click', e => {
                 e.stopPropagation();
                 navLinks.classList.toggle('show');
             });
 
-            document.addEventListener('click', (e) => {
-                if (navLinks.classList.contains('show') && !navLinks.contains(e.target) && e.target !== menuToggle) {
+            document.addEventListener('click', e => {
+                if (navLinks.classList.contains('show') &&
+                    !navLinks.contains(e.target) &&
+                    e.target !== menuToggle) {
                     navLinks.classList.remove('show');
                 }
             });
 
-            navLinks.addEventListener('click', (e) => {
+            navLinks.addEventListener('click', e => {
                 if (e.target.tagName === 'A') navLinks.classList.remove('show');
             });
         }
-    </script>
 
-    <!-- Theme Toggle Script -->
-    <script>
+        // Theme Toggle
         const themeToggleBtn = document.querySelector('.theme-toggle');
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
             });
         }
+
+        // Page Scroll Control
+        if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
     </script>
+
 </body>
+
 </html>

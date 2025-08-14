@@ -5,64 +5,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuber Bassi - Technology & Creativity - India</title>
-    <!-- For PNG favicon -->
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- main stylesheet (paste the cleaned CSS into this file) -->
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- NOTE: Using a local/custom font via @font-face in style.css -->
 </head>
 
 <body>
+    <div class="container">
 
-    <!-- Navbar -->
-    <header class="navbar">
-        <div class="logo"><a href="/index.html">Kuber Bassi</a></div>
+        <!-- Navbar -->
+        <header class="navbar">
+            <div class="logo"><a href="/index.html">Kuber Bassi</a></div>
 
-        <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+            <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
 
-        <ul class="nav-links">
-            <li><a href="/about.html">About</a></li>
-            <li><a href="/projects.html">Projects</a></li>
-            <li><a href="/contact.html">Contact</a></li>
-        </ul>
+            <ul class="nav-links">
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/projects.html">Projects</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
 
-        <div class="nav-actions">
-            <button class="theme-toggle" aria-label="Toggle theme">
-                <img src="images/dark mode.png" alt="Toggle theme">
-            </button>
-            <a href="mailto:kuberbassi2007@gmail.com" class="contact-btn">Email Me</a>
-        </div>
-    </header>
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <img src="images/dark mode.png" alt="Toggle theme">
+                </button>
+                <a href="mailto:kuberbassi2007@gmail.com" class="contact-btn">Email Me</a>
+            </div>
+        </header>
 
-    <!-- Hero Section (ordered for correct layering) -->
-    <section class="hero" id="hero">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
 
-        <!-- top intro text (top layer) -->
-        <p class="intro" id="hero-intro">👋, my name is Kuber Bassi and I am an innovator in</p>
+                <!-- Intro -->
+                <p class="intro" id="hero-intro">
+                    👋, my name is Kuber Bassi and I am an innovator in
+                </p>
 
-        <!-- bold heading (front layer) -->
-        <h1 id="hero-bold" class="bold-text">Technology</h1>
+                <!-- Bold heading (front) -->
+                <h1 id="hero-bold" class="bold-text">Technology</h1>
 
-        <!-- image (middle layer) -->
-        <img id="hero-img" class="hero-img" src="images/Kuber.png" alt="Portrait of Kuber Bassi">
+                <!-- Image (middle) -->
+                <img id="hero-img" class="hero-img" src="images/Kuber.png" alt="Portrait of Kuber Bassi">
 
-        <!-- outline heading (behind image) -->
-        <h2 id="hero-outline" class="outline-text">&amp; Creativity</h2>
+                <!-- Outline heading (behind) -->
+                <h1 id="hero-outline" class="outline-text">&amp; Creativity</h1>
 
-        <!-- location -->
-        <p id="hero-location" class="location">Based in New Delhi, India</p>
+                <!-- Location -->
+                <p id="hero-location" class="location">Based in New Delhi, India</p>
 
-        <!-- buttons -->
-        <div id="hero-buttons" class="hero-buttons">
-            <a href="/projects.html" class="btn dark">See My Work</a>
-            <a href="/contact.html" class="btn light">Contact Me</a>
-        </div>
-    </section>
+                <!-- Buttons -->
+                <div id="hero-buttons" class="hero-buttons">
+                    <a href="/projects.html" class="btn dark">See My Work</a>
+                    <a href="/contact.html" class="btn light">Contact Me</a>
+                </div>
+            </div>
+        </section>
+    </div>
 
-    <!-- Menu Toggle Script (keeps original behavior) -->
+    <!-- Scripts -->
     <script>
+        // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
@@ -82,18 +88,28 @@
                 if (e.target.tagName === 'A') navLinks.classList.remove('show');
             });
         }
-    </script>
 
-    <!-- Theme Toggle Script -->
-    <script>
+        // Theme toggle
         const themeToggleBtn = document.querySelector('.theme-toggle');
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
             });
         }
-    </script>
 
+        // Page scroll control (disable only on index)
+        if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        // Bold heading hover effect
+        const heroBold = document.getElementById('hero-bold');
+        heroBold?.addEventListener('mouseenter', () => {
+            heroBold.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>

@@ -1,4 +1,6 @@
-/* ====== Root Variables ====== */
+/* ===================================
+   Root Variables & Fonts
+=================================== */
 :root {
   --font-main: 'sf_pro_displayregular', Arial, sans-serif;
   --font-heading: 'media_sans_semicondensedRg', Arial, sans-serif;
@@ -9,384 +11,19 @@
   --color-accent: #000;
   --color-gray: #686868;
   --color-underline: #000;
-}
 
-/* ====== Reset ====== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* ====== Base Styles ====== */
-html,
-body {
-  height: 100%;
-}
-
-body {
-  font-family: var(--font-main);
-  color: var(--color-text);
-  background: var(--color-bg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background 0.3s, color 0.3s;
-  line-height: 1.45;
-}
-
-/* small accessible focus style */
-:focus {
-  outline: 3px solid rgba(0, 0, 0, 0.12);
-  outline-offset: 2px;
-}
-
-/* ====== Dark Mode ====== */
-/* Toggle by adding .dark-mode on body */
-body.dark-mode {
-  --color-bg: #121212;
-  --color-text: #fff;
-  --color-accent: #fff;
-  --color-gray: #bbb;
-  --color-underline: #fff;
-}
-
-/* Buttons in Dark Mode */
-body.dark-mode .contact-btn {
-  background: #fff;
-  color: #000;
-}
-
-body.dark-mode .theme-toggle {
-  border-color: #fff;
-}
-
-body.dark-mode .nav-links a::after {
-  background-color: #fff;
-}
-
-/* ====== Navbar ====== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  gap: 1rem;
-  z-index: 20;
-  background: transparent;
-}
-
-.logo a {
-  font-size: 2.2rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: inherit;
-  font-family: var(--font-heading);
-  letter-spacing: 2px;
-}
-
-.logo a::after {
-  display: none;
-}
-
-/* Nav links */
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  font-size: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--color-gray);
-  position: relative;
-  padding-bottom: 2px;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover,
-.nav-links a:focus {
-  color: var(--color-accent);
-}
-
-/* underline animation */
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 3.5px;
-  background-color: var(--color-accent);
-  transition: width 0.3s;
-}
-
-.nav-links a:hover::after,
-.nav-links a:focus::after {
-  width: 100%;
-}
-
-/* dark-mode hover tweak */
-body.dark-mode .nav-links a:hover {
-  color: #fff;
-}
-
-/* ====== Nav actions (theme toggle + contact) ====== */
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* ====== Theme Toggle Button ====== */
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--color-accent);
-  padding: 0.4rem;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-toggle img {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-body.dark-mode .theme-toggle img {
-  filter: invert(1);
-}
-
-/* ====== Contact Button ====== */
-.contact-btn {
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 1rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-}
-
-/* dark-mode tweaks for navbar controls */
-body.dark-mode .theme-toggle {
-  border-color: #fff;
-}
-
-body.dark-mode .contact-btn {
-  background: #fff;
-  color: #000;
-}
-
-body.dark-mode .nav-links a:hover {
-  color: #fff;
-}
-
-
-/* =========================
-   Hero Section (cleaned)
-   ========================= */
-
-/* Colors / vars */
-:root {
-  --black: #111;
-  --muted: #888;
+  --black: #151515;
+  --muted: #616161;
   --fade-height: 200px;
-  /* replace if needed */
+
+  /* Layout helpers */
+  --nav-h: 110px;
+  /* adjust if your navbar is taller/shorter */
+  --hero-top-pad: clamp(8px, 8vh, 120px);
+  /* move content UP/DOWN without touching image/fade */
 }
 
-/* ---------- Container ---------- */
-.hero {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  /* full viewport hero */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-/* ---------- Intro / Location (top layer) ---------- */
-.hero .intro,
-.hero .location {
-  color: var(--muted);
-  font-size: 1.25rem;
-  z-index: 6;
-  /* above image & fade */
-  margin: 0.6rem 0;
-}
-
-/* ---------- Headings / Text layers ---------- */
-/* bold (front) */
-#hero-bold,
-.bold-text {
-  font-family: var(--font-heading);
-  color: var(--black);
-  line-height: 1;
-  z-index: 6;
-  /* sits above image & fade */
-  margin: 0;
-  font-size: clamp(6rem, 12vw, 14rem);
-  letter-spacing: 0.05em; /* Adds space between characters */
-
-}
-
-/* outline (behind image) */
-#hero-outline,
-.outline-text {
-  font-family: var(--font-heading);
-  color: transparent;
-  -webkit-text-stroke: 0.1rem #000;
-  /* visible outline */
-  line-height: 1;
-  margin: 0;
-  z-index: 2;
-  /* behind image */
-  font-size: clamp(4rem, 10vw, 12rem);
-  letter-spacing: 0.05em; /* Adds space between characters */
-}
-
-/* ---------- Hero Image (middle layer) ---------- */
-.hero-img {
-  position: absolute;
-  left: 50%;
-  right: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  z-index: 3;
-  /* between outline and bold */
-  max-height: 90vh;
-  /* prevents overflowing tall images */
-  height: auto;
-  width: auto;
-  max-width: 35vw;
-  /* keeps the image proportional and not too wide */
-  object-fit: contain;
-  opacity: 0.95;
-  pointer-events: none;
-}
-
-/* ---------- Bottom Fade (over image, under text) ---------- */
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: var(--fade-height);
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
-  z-index: 4;
-  /* hides the image bottom slightly */
-  pointer-events: none;
-}
-
-body.dark-mode .hero::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: var(--fade-height);
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #000000);
-  z-index: 4;
-  /* hides the image bottom slightly */
-  pointer-events: none;
-}
-
-/* ---------- Buttons (top layer) ---------- */
-.hero-buttons {
-  display: flex;
-  gap: 16px;
-  z-index: 6;
-  margin-top: 2rem;
-  justify-content: center;
-}
-
-.btn {
-  padding: 12px 34px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 2px solid var(--black);
-  background: #fff;
-  color: var(--black);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* variants */
-.btn.dark {
-  background: var(--black);
-  color: #fff;
-}
-
-.btn.light {
-  background: transparent;
-}
-
-/* ---------- Dark-mode small tweaks (if you use dark mode) ---------- */
-body.dark-mode .bold-text,
-body.dark-mode #hero-bold {
-  color: #fff;
-}
-
-body.dark-mode .outline-text,
-body.dark-mode #hero-outline {
-  -webkit-text-stroke: 1.5px #fff;
-}
-
-/* ---------- Responsive adjustments ---------- */
-@media (max-width: 768px) {
-  .hero {
-    padding: 2rem 1rem;
-    height: auto;
-    /* allow scrolling on small screens */
-  }
-
-  /* scale text and image down */
-  #hero-bold,
-  #hero-outline,
-  .bold-text,
-  .outline-text {
-    font-size: clamp(1.6rem, 12vw, 3rem);
-  }
-
-  .hero-img {
-    max-width: 50vw;
-    max-height: 60vh;
-  }
-
-  .hero-buttons {
-    margin-top: 1.2rem;
-    gap: 10px;
-  }
-
-  .hero .intro,
-  .hero .location {
-    font-size: 1rem;
-  }
-}
-
-/* - Adjust --font-heading, --fade-height, and .hero-img max-width to taste.
-- If you want the image slightly larger, increase .hero-img max-width (e.g., 40vw).
----------------------------------------- */
-
-
-/* =========================
-   Fonts (keep these at top)
-   ========================= */
+/* Fonts */
 @font-face {
   font-family: 'media_sans_extendedregular';
   src: url('fonts/mediasansextended-regular-trial-bf63c7546b4aef3-webfont.woff2') format('woff2'),
@@ -414,12 +51,443 @@ body.dark-mode #hero-outline {
   font-display: swap;
 }
 
-/* =========================
-   Responsiveness
-   (mobile / tablet / small-phone)
-   ========================= */
+/* ===================================
+   Reset & Base Styles
+=================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Hide hamburger by default (desktop) */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  /* Prevent vertical scroll */
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s, color 0.3s;
+}
+
+:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.12);
+  outline-offset: 2px;
+}
+
+/* ===================================
+   Dark Mode
+=================================== */
+body.dark-mode {
+  --color-bg: #000000;
+  --color-text: #fff;
+  --color-accent: #fff;
+  --color-gray: #bbb;
+  --color-underline: #fff;
+}
+
+body.dark-mode .contact-btn {
+  background: #fff;
+  color: #000;
+}
+
+body.dark-mode .theme-toggle {
+  border-color: #fff;
+}
+
+body.dark-mode .nav-links a::after {
+  background-color: #fff;
+}
+
+body.dark-mode .nav-links a:hover {
+  color: #fff;
+}
+
+body.dark-mode .theme-toggle img {
+  filter: invert(1);
+}
+
+body.dark-mode .bold-text,
+body.dark-mode #hero-bold {
+  color: #fff;
+}
+
+body.dark-mode .outline-text,
+body.dark-mode #hero-outline {
+  -webkit-text-stroke: 0.1px #fff;
+  color: black;
+}
+
+body.dark-mode .hero::after {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #000);
+}
+
+/* ===================================
+   Navbar
+=================================== */
+.navbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 35px 80px;
+  height: var(--nav-h);
+  /* keeps hero from exceeding 100vh */
+  z-index: 100;
+  /* above hero visuals */
+  background: transparent;
+}
+
+.logo a {
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  font-family: var(--font-heading);
+  letter-spacing: 2px;
+  cursor: cell;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.logo a:hover {
+  transform: rotate(-5deg);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--color-gray);
+  position: relative;
+  padding-bottom: 2px;
+  cursor: cell;
+
+  /* Important: inline-block allows transform to work */
+  display: inline-block;
+
+  /* Animate color, movement, and allow underline to grow */
+  transition: color 0.2s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--color-accent);
+  transform: translateY(-4px);
+  /* Rising effect */
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 3.5px;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus::after {
+  width: 100%;
+  /* Underline grows fully */
+}
+
+/* Navbar actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--color-accent);
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: cell;
+
+  /* Smooth transitions for background, border, and transform */
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+
+  /* Subtle shadow for a modern look */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:hover {
+  /* background-color: var(--color-accent); */
+  border-color: var(--color-accent);
+
+  /* Slight scale up for a gentle rising effect */
+  transform: scale(1.1);
+
+  /* Stronger shadow on hover for depth */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.theme-toggle:active {
+  /* Slight scale down on click for tactile feedback */
+  transform: scale(0.95);
+}
+
+.theme-toggle img {
+  width: 20px;
+  height: 20px;
+
+  /* Smooth rotation transition */
+  transition: transform 0.5s ease;
+}
+
+.theme-toggle:hover img {
+  /* Rotate the image slightly on hover for fun subtle animation */
+  transform: rotate(20deg);
+}
+
+/* Contact button */
+.contact-btn {
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  cursor: cell;
+  transition: all 0.3s ease;
+  padding: 0.7rem 1.5rem;
+  /* smaller by default */
+  box-shadow: none;
+  /* no shadow by default */
+}
+
+.contact-btn:hover {
+  padding: 0.7rem 2.6rem;
+  /* expand width on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  /* shadow appears on hover */
+}
+
+/* ===================================
+   Hero Section
+=================================== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--nav-h));
+  /* stay within the viewport below the navbar */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* start at the top */
+  align-items: center;
+  text-align: center;
+  font-weight: lighter;
+  padding-top: var(--hero-top-pad);
+  /* <-- move content up/down with this */
+}
+
+.container {
+  max-width: 1590px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Put ALL hero text & buttons ABOVE image/fade — no wrapper needed */
+.hero .intro,
+.hero .location,
+#hero-bold,
+.bold-text,
+#hero-outline,
+.outline-text,
+.hero-buttons {
+  position: relative;
+  z-index: 2;
+  /* above fade(1) and image(0) */
+}
+
+/* Text styles */
+.hero .intro,
+.hero .location {
+  color: var(--muted);
+  font-size: 1.8rem;
+  margin: 0.6rem 0;
+  -webkit-box-flex-group: 1;
+}
+
+#hero-bold,
+.bold-text {
+  font-family: var(--font-heading);
+  color: var(--black);
+  font-size: clamp(6rem, 12vw, 14rem);
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+  line-height: 1;
+}
+
+#hero-outline,
+.outline-text {
+  font-family: var(--font-heading);
+  color: white;
+  -webkit-text-stroke: 0.1px #000;
+  font-size: clamp(4rem, 10vw, 12rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin: 0;
+  z-index: 0;
+}
+
+.hero h1 {
+  opacity: 0.75;
+  margin-bottom: 5px;
+  -webkit-box-flex-group: 1;
+  transition: filter 0.4s ease, color 0.4s ease, -webkit-text-stroke-color 0.4s ease;
+  /* smooth transition for filter, color, and text stroke */
+  filter: invert(0);
+  /* normal colors */
+  cursor: default;
+  color: black;
+  /* base text color */
+  -webkit-text-stroke: 0px rgb(255, 255, 255);
+  /* no outline initially */
+}
+
+.hero h1:hover {
+  filter: invert(1) brightness(1.2) saturate(1.3);
+  /* combined invert, brightness, saturation */
+  cursor: cell;
+  color: white;
+  /* inverted fill color for better contrast */
+  -webkit-text-stroke: 0.1px rgb(255, 255, 255);
+  /* add black outline on hover */
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 0;
+  justify-content: right;
+}
+
+.btn {
+  font-size: 1rem;
+  border-radius: 3px;
+  /* border: 3px solid var(--black); */
+  background: #fff;
+  color: var(--black);
+  text-decoration: none;
+  cursor: cell;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.5rem;
+  /* smaller by default */
+  box-shadow: none;
+  /* no shadow by default */
+}
+
+.btn:hover {
+  padding: 0.5rem 3rem;
+  /* expand width on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  /* shadow appears on hover */
+}
+
+.btn.dark {
+  background: var(--black);
+  color: #fff;
+  border: 3px solid var(--black);
+}
+
+.btn.light {
+  background: white;
+  border: 3px solid var(--black);
+}
+
+body.dark-mode .btn.dark {
+  background: white;
+  color: #000000;
+  border: 3px solid white;
+}
+
+body.dark-mode .btn.light {
+  background: black;
+  color: white;
+  border: 3px solid white;
+}
+
+/* Image anchored to bottom */
+.hero-img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 1;
+  /* base layer */
+  max-height: 88vh;
+  /* keep generous but safe */
+  max-width: 35vw;
+  object-fit: contain;
+  opacity: 0.89;
+  pointer-events: none;
+}
+
+/* Fade above image but below text */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+  z-index: 1;
+  /* between image(0) and text(2) */
+  pointer-events: none;
+}
+
+/* ===================================
+   Section Headings
+=================================== */
+/* .about h2,
+.projects h2,
+.contact h2 {
+font-size: 150px;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+*/
+
+/* ===================================
+   Responsive
+=================================== */
 .menu-toggle {
   display: none;
   font-size: 1.8rem;
@@ -429,36 +497,27 @@ body.dark-mode #hero-outline {
   color: var(--color-text);
 }
 
-/* ===== Mobile Devices (≤ 768px) ===== */
+/* Mobile ≤ 768px */
 @media (max-width: 768px) {
+  :root {
+    --nav-h: 64px;
+    /* typically smaller on mobile */
+    --hero-top-pad: clamp(8px, 6vh, 64px);
+  }
 
-  /* Navbar layout */
   .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     padding: 10px 15px;
-    position: relative;
+    height: var(--nav-h);
   }
 
-  /* Logo stays left */
-  .logo {
-    order: 1;
-  }
-
-  /* Theme toggle and menu order */
   .theme-toggle {
-    order: 2;
     margin-left: 10px;
   }
 
   .menu-toggle {
-    order: 3;
     display: block;
-    /* show hamburger on mobile */
   }
 
-  /* Mobile nav panel */
   .nav-links {
     display: none;
     flex-direction: column;
@@ -467,7 +526,6 @@ body.dark-mode #hero-outline {
     position: absolute;
     top: 60px;
     left: 0;
-    /* consistent placement */
     width: 100%;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
@@ -478,44 +536,43 @@ body.dark-mode #hero-outline {
     display: flex;
   }
 
-  /* Hero text sizing for mobile */
+  .hero {
+    height: calc(100vh - var(--nav-h));
+  }
+
   .hero h1 {
     font-size: clamp(42px, 7vw, 64px);
-    text-align: center;
   }
 
   .hero .intro,
-  .location {
+  .hero .location {
     font-size: 18px;
-    text-align: center;
-    right: 0;
   }
 
-  /* Buttons stack on mobile */
   .hero-buttons {
     flex-direction: column;
     align-items: center;
-    left: 0;
     gap: 12px;
   }
 
   .btn {
     width: 100%;
     max-width: 320px;
-    text-align: center;
   }
 
-  /* Slight spacing tweaks for text overlap */
-  .bold-text {
-    margin: 0;
+  /* Make room on small screens so content doesn't hide behind the image */
+  .hero-img {
+    max-height: 52vh;
+    max-width: 70vw;
   }
 
   .outline-text {
-    margin-top: -20px;
+    margin-top: -12px;
   }
+
 }
 
-/* ===== Medium Tablets / Small Laptops (≤ 1135px and ≥ 769px) ===== */
+/* Tablets ≤ 1135px */
 @media (max-width: 1135px) and (min-width: 769px) {
   .hero h1 {
     font-size: clamp(72px, 8vw, 110px);
@@ -525,53 +582,200 @@ body.dark-mode #hero-outline {
     padding: 12px 20px;
   }
 
-  /* Keep menu icon hidden for this range (tablet / small laptop) */
-  .menu-toggle {
-    display: none;
+  .hero-img {
+    max-width: 45vw;
+    max-height: 70vh;
   }
+
 }
 
-/* ===== Small Phones (≤ 480px) ===== */
+/* Small phones ≤ 480px */
 @media (max-width: 480px) {
   .hero h1 {
     font-size: 40px;
   }
 
   .hero .intro,
-  .location {
+  .hero .location {
     font-size: 16px;
   }
 
   .nav-links a {
     font-size: 0.9rem;
   }
+
 }
 
-/* ================================================================== */
 
-.about h2{
-  font-size: 150px;
-  margin-bottom: 1rem;
-  color: var(--color-text);
-  font-family: var(--font-heading);
+
+
+.projects {
+  padding: 2rem;
   text-align: center;
-  letter-spacing: 5px;
 }
 
-.projects h2{
-  font-size: 150px;
-  margin-bottom: 1rem;
-  color: var(--color-text);
-  font-family: var(--font-heading);
-  text-align: center;
-  letter-spacing: 5px;
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
-.contact h2{
-  font-size: 150px;
-  margin-bottom: 1rem;
-  color: var(--color-text);
-  font-family: var(--font-heading);
+.project-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.03);
+}
+
+/* ======================================== */
+.contact-intro {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
   text-align: center;
-  letter-spacing: 5px;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-background-light);
+  border-radius: 50px;
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.social-links a img {
+  width: 24px;
+  height: 24px;
+}
+
+.social-links a:hover {
+  transform: translateY(-3px);
+  background: var(--color-accent-light);
+}
+
+/* ===================================
+Root Variables & Fonts
+=================================== */
+:root {
+  /* existing vars unchanged */
+  --grid-gap: 1.5rem;
+  /* for grid layouts */
+}
+
+/* ===================================
+Global Grid Utility (NEW)
+=================================== */
+.grid {
+  display: grid;
+  grid-gap: var(--grid-gap);
+}
+
+/* Example: Projects section using CSS Grid instead of flex */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--grid-gap);
+}
+
+/* ===================================
+Hero Animations with Keyframes (NEW)
+=================================== */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+.hero .intro {
+  animation: fadeSlideIn 0.8s ease-out forwards;
+}
+
+#hero-bold {
+  animation: fadeSlideIn 0.8s ease-out 0.15s forwards;
+}
+
+#hero-outline {
+  animation: fadeSlideIn 0.8s ease-out 0.3s forwards;
+}
+
+/* Logical spacing instead of fixed directions */
+section {
+  padding-block: 4rem;
+  /* replaces padding-top/bottom */
+  padding-inline: 2rem;
+  /* replaces padding-left/right */
+}
+
+/* ===================================
+CSS Filters & Blend Modes (NEW)
+=================================== */
+.hero-img.hover-effect:hover {
+  filter: grayscale(0.4) contrast(1.2) brightness(1.1);
+  mix-blend-mode: multiply;
+  transition: filter 0.4s ease;
+}
+
+/* ===================================
+Form Styling & Accessibility (NEW)
+=================================== */
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-gray);
+  font: inherit;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: 2px solid var(--color-accent);
+}
+
+/* ===================================
+Print Styles (NEW)
+=================================== */
+@media print {
+
+  nav,
+  .hero-buttons,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    color: black;
+    background: white;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: black;
+    -webkit-text-stroke: 0;
+  }
 }

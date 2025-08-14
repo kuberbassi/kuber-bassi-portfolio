@@ -5,16 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuber Bassi - Technology & Creativity - India</title>
-    <!-- For PNG favicon -->
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- main stylesheet (paste the cleaned CSS into this file) -->
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- NOTE: Using a local/custom font via @font-face in style.css -->
 </head>
 
 <body>
+
     <!-- Navbar -->
     <header class="navbar">
         <div class="logo"><a href="/index.html">Kuber Bassi</a></div>
@@ -35,45 +35,68 @@
         </div>
     </header>
 
-    <!-- CONTACT -->
+    <!-- Contact Section -->
     <section class="contact" id="contact">
-        <h2>Contact</h2>
-        <p>Learn more about my background and experience.</p>
+        <h2 class="section-title">Contact</h2>
+        <p class="contact-intro">Let’s connect! You can find me on these platforms:</p>
+
+        <div class="social-links">
+            <a href="mailto:kuberbassi2007@gmail.com" target="_blank">
+                <img src="/icons/email.svg" alt="Email"> Email
+            </a>
+            <a href="https://github.com/kuberbassi" target="_blank">
+                <img src="/icons/github.svg" alt="GitHub"> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_ID" target="_blank">
+                <img src="/icons/linkedin.svg" alt="LinkedIn"> LinkedIn
+            </a>
+            <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank">
+                <img src="/icons/instagram.svg" alt="Instagram"> Instagram
+            </a>
+        </div>
     </section>
 
-
-    <!-- Menu Toggle Script (keeps original behavior) -->
+    <!-- Scripts -->
     <script>
+        // Mobile Menu Toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
         if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', (e) => {
+            menuToggle.addEventListener('click', e => {
                 e.stopPropagation();
                 navLinks.classList.toggle('show');
             });
 
-            document.addEventListener('click', (e) => {
-                if (navLinks.classList.contains('show') && !navLinks.contains(e.target) && e.target !== menuToggle) {
+            document.addEventListener('click', e => {
+                if (navLinks.classList.contains('show') &&
+                    !navLinks.contains(e.target) &&
+                    e.target !== menuToggle) {
                     navLinks.classList.remove('show');
                 }
             });
 
-            navLinks.addEventListener('click', (e) => {
+            navLinks.addEventListener('click', e => {
                 if (e.target.tagName === 'A') navLinks.classList.remove('show');
             });
         }
-    </script>
 
-    <!-- Theme Toggle Script -->
-    <script>
+        // Theme Toggle
         const themeToggleBtn = document.querySelector('.theme-toggle');
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
             });
         }
+
+        // Page Scroll Control
+        if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
     </script>
+
 </body>
 
 </html>
