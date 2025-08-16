@@ -13,14 +13,12 @@
   --color-underline: #000;
 
   --black: #151515;
-  --muted: rgb(49, 49, 49);
+  --muted: #616161;
   --fade-height: 200px;
 
-  /* Layout helpers */
   --nav-h: 110px;
-  /* adjust if your navbar is taller/shorter */
   --hero-top-pad: clamp(8px, 8vh, 120px);
-  /* move content UP/DOWN without touching image/fade */
+  --grid-gap: 1.5rem;
 }
 
 /* Fonts */
@@ -66,7 +64,6 @@ html,
 body {
   height: 100%;
   overflow: hidden;
-  /* Prevent vertical scroll */
 }
 
 body {
@@ -88,7 +85,7 @@ body {
    Dark Mode
 =================================== */
 body.dark-mode {
-  --color-bg: #000000;
+  --color-bg: #000;
   --color-text: #fff;
   --color-accent: #fff;
   --color-gray: #bbb;
@@ -105,7 +102,7 @@ body.dark-mode .theme-toggle {
 }
 
 body.dark-mode .nav-links a::after {
-  background-color: #fff;
+  background: #fff;
 }
 
 body.dark-mode .nav-links a:hover {
@@ -124,7 +121,7 @@ body.dark-mode #hero-bold {
 body.dark-mode .outline-text,
 body.dark-mode #hero-outline {
   -webkit-text-stroke: 0.1px #fff;
-  color: black;
+  color: #000;
 }
 
 body.dark-mode .hero::after {
@@ -142,19 +139,17 @@ body.dark-mode .hero::after {
   gap: 1rem;
   padding: 60px 80px;
   height: var(--nav-h);
-  /* keeps hero from exceeding 100vh */
   z-index: 100;
-  /* above hero visuals */
   background: transparent;
 }
 
 .logo a {
   font-size: 2.2rem;
   font-weight: bold;
-  text-decoration: none;
-  color: inherit;
   font-family: var(--font-heading);
   letter-spacing: 2px;
+  color: inherit;
+  text-decoration: none;
   cursor: cell;
   display: inline-block;
   transition: transform 0.3s ease;
@@ -165,8 +160,8 @@ body.dark-mode .hero::after {
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: 50px;
   font-size: 1rem;
   font-weight: 500;
@@ -175,16 +170,12 @@ body.dark-mode .hero::after {
 }
 
 .nav-links a {
-  text-decoration: none;
-  color: var(--color-gray);
   position: relative;
+  display: inline-block;
+  color: var(--color-gray);
+  text-decoration: none;
   padding-bottom: 2px;
   cursor: cell;
-
-  /* Important: inline-block allows transform to work */
-  display: inline-block;
-
-  /* Animate color, movement, and allow underline to grow */
   transition: color 0.2s ease, transform 0.3s ease;
 }
 
@@ -192,104 +183,80 @@ body.dark-mode .hero::after {
 .nav-links a:focus {
   color: var(--color-accent);
   transform: translateY(-4px);
-  /* Rising effect */
 }
 
 .nav-links a::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 0%;
   height: 3.5px;
-  background-color: var(--color-accent);
+  background: var(--color-accent);
   transition: width 0.3s ease;
 }
 
 .nav-links a:hover::after,
 .nav-links a:focus::after {
   width: 100%;
-  /* Underline grows fully */
 }
 
-/* Navbar actions */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* Theme toggle */
 .theme-toggle {
-  background: none;
-  border: 1px solid var(--color-accent);
-  padding: 0.4rem 0.6rem;
-  border-radius: 10px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 10px;
+  background: none;
   cursor: cell;
-
-  /* Smooth transitions for background, border, and transform */
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-
-  /* Subtle shadow for a modern look */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .theme-toggle:hover {
-  /* background-color: var(--color-accent); */
   border-color: var(--color-accent);
-
-  /* Slight scale up for a gentle rising effect */
   transform: scale(1.1);
-
-  /* Stronger shadow on hover for depth */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 }
 
 .theme-toggle:active {
-  /* Slight scale down on click for tactile feedback */
   transform: scale(0.95);
 }
 
 .theme-toggle img {
   width: 20px;
   height: 20px;
-
-  /* Smooth rotation transition */
   transition: transform 0.5s ease;
 }
 
 .theme-toggle:hover img {
-  /* Rotate the image slightly on hover for fun subtle animation */
   transform: rotate(20deg);
 }
 
-/* Contact button */
 .contact-btn {
   background: var(--color-accent);
   color: #fff;
   font-size: 1.1rem;
-  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  padding: 0.7rem 1.5rem;
+  border: none;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
-  border: none;
   cursor: cell;
-  transition: all 0.3s ease;
-  padding: 0.7rem 1.5rem;
-  /* smaller by default */
   box-shadow: none;
-  /* no shadow by default */
+  transition: all 0.3s ease;
 }
 
 .contact-btn:hover {
   padding: 0.7rem 2.6rem;
-  /* expand width on hover */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  /* shadow appears on hover */
 }
 
 /* ===================================
@@ -297,18 +264,19 @@ body.dark-mode .hero::after {
 =================================== */
 .hero {
   position: relative;
-  width: 100%;
-  height: calc(100vh - var(--nav-h));
-  /* stay within the viewport below the navbar */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  /* start at the top */
   align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: calc(100vh - var(--nav-h));
   text-align: center;
   font-weight: lighter;
+  color: var(--muted);
+  font-size: 1.8rem;
   padding-top: var(--hero-top-pad);
-  /* <-- move content up/down with this */
+  margin: 0.6rem 0;
+  transform: translateY(-10%);
 }
 
 .container {
@@ -317,7 +285,6 @@ body.dark-mode .hero::after {
   padding: 0 1rem;
 }
 
-/* Put ALL hero text & buttons ABOVE image/fade — no wrapper needed */
 .hero .intro,
 .hero .location,
 #hero-bold,
@@ -327,80 +294,60 @@ body.dark-mode .hero::after {
 .hero-buttons {
   position: relative;
   z-index: 2;
-  /* above fade(1) and image(0) */
 }
 
-/* Text styles */
-.hero {
-  color: var(--muted);
+.hero .intro,
+.hero .location {
+  color: rgb(49, 49, 49);
   font-size: 1.8rem;
   margin: 0.6rem 0;
-  -webkit-box-flex-group: 1;
-}
-
-.location, #hero-intro {
-  color: rgb(49, 49, 49);  
-  font-size: 1.8rem;
-  margin: 0.6rem 0;
-  -webkit-box-flex-group: 1;
 }
 
 #hero-bold,
 .bold-text {
   font-family: var(--font-heading);
-  color: var(--black);
   font-size: clamp(6rem, 12vw, 14rem);
-  letter-spacing: 0.05em;
-  margin-top: 1rem;
   line-height: 1;
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--black);
   z-index: 0;
 }
 
 #hero-outline,
 .outline-text {
   font-family: var(--font-heading);
-  color: transparent;
-  -webkit-text-stroke: 0.1px #000;
   font-size: clamp(4rem, 10vw, 12rem);
-  letter-spacing: 0.05em;
   line-height: 1;
   margin: 0;
+  letter-spacing: 0.05em;
+  color: transparent;
+  -webkit-text-stroke: 0.1px #000;
   z-index: 0;
 }
 
-
-
-
-
-
-/* Buttons */
 .hero-buttons {
   display: flex;
+  justify-content: right;
   gap: 16px;
   margin-top: 0;
-  justify-content: right;
 }
 
 .btn {
   font-size: 1rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 3px;
-  /* border: 3px solid var(--black); */
   background: #fff;
   color: var(--black);
   text-decoration: none;
   cursor: cell;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1.5rem;
-  /* smaller by default */
   box-shadow: none;
-  /* no shadow by default */
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
   padding: 0.5rem 3rem;
-  /* expand width on hover */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  /* shadow appears on hover */
 }
 
 .btn.dark {
@@ -410,43 +357,41 @@ body.dark-mode .hero::after {
 }
 
 .btn.light {
-  background: white;
+  background: #fff;
+  color: var(--black);
   border: 3px solid var(--black);
 }
 
 body.dark-mode .btn.dark {
-  background: white;
-  color: #000000;
-  border: 3px solid white;
+  background: #fff;
+  color: #000;
+  border: 3px solid #fff;
 }
 
 body.dark-mode .btn.light {
-  background: black;
-  color: white;
-  border: 3px solid white;
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
 }
 
-body.dark-mode .location, #hero-intro {
+body.dark-mode .location,
+body.dark-mode .hero .intro {
   color: rgb(173, 173, 173);
 }
 
-/* Image anchored to bottom */
 .hero-img {
   position: absolute;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  z-index: 1;
-  /* base layer */
-  max-height: 77vh;
-  /* keep generous but safe */
   max-width: 25vw;
+  max-height: 77vh;
   object-fit: contain;
   opacity: 0.85;
   pointer-events: none;
+  z-index: 1;
 }
 
-/* Fade above image but below text */
 .hero::after {
   content: "";
   position: absolute;
@@ -455,51 +400,133 @@ body.dark-mode .location, #hero-intro {
   width: 100%;
   height: 150px;
   background: linear-gradient(to bottom, transparent, var(--color-bg));
-  z-index: 1;
-  /* between image(0) and text(2) */
   pointer-events: none;
+  z-index: 1;
 }
-
-
-
-.hero {
-  transform: translateY(-10%);
-}
-
 
 /* ===================================
-   Section Headings
+   Projects Section
 =================================== */
-/* .about h2,
-.projects h2,
-.contact h2 {
-font-size: 150px;
-  margin-bottom: 1rem;
-  color: var(--color-text);
-  font-family: var(--font-heading);
+.projects {
+  padding: 2rem;
   text-align: center;
-  letter-spacing: 5px;
 }
 
-*/
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--grid-gap);
+}
+
+.project-card {
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.03);
+}
 
 /* ===================================
-   Responsive
+   Contact Section
+=================================== */
+.contact-intro {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-background-light);
+  border-radius: 50px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.social-links a img {
+  width: 24px;
+  height: 24px;
+}
+
+.social-links a:hover {
+  transform: translateY(-3px);
+  background: var(--color-accent-light);
+}
+
+/* ===================================
+   Utilities & Animations
+=================================== */
+.grid {
+  display: grid;
+  grid-gap: var(--grid-gap);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero .intro {
+  animation: fadeSlideIn 0.8s ease-out forwards;
+}
+
+#hero-bold {
+  animation: fadeSlideIn 0.8s ease-out 0.15s forwards;
+}
+
+#hero-outline {
+  animation: fadeSlideIn 0.8s ease-out 0.3s forwards;
+}
+
+section {
+  padding-block: 4rem;
+  padding-inline: 2rem;
+}
+
+.hero-img.hover-effect:hover {
+  filter: grayscale(0.4) contrast(1.2) brightness(1.1);
+  mix-blend-mode: multiply;
+  transition: filter 0.4s ease;
+}
+
+/* ===================================
+   Responsive Media Queries
 =================================== */
 .menu-toggle {
   display: none;
   font-size: 1.8rem;
   background: none;
   border: none;
-  cursor: pointer;
   color: var(--color-text);
+  cursor: pointer;
 }
 
-/* Mobile ≤ 768px */
 @media (max-width: 768px) {
   :root {
     --nav-h: 64px;
-    /* typically smaller on mobile */
     --hero-top-pad: clamp(8px, 6vh, 64px);
   }
 
@@ -558,7 +585,6 @@ font-size: 150px;
     max-width: 320px;
   }
 
-  /* Make room on small screens so content doesn't hide behind the image */
   .hero-img {
     max-height: 52vh;
     max-width: 70vw;
@@ -567,10 +593,8 @@ font-size: 150px;
   .outline-text {
     margin-top: -12px;
   }
-
 }
 
-/* Tablets ≤ 1135px */
 @media (max-width: 1135px) and (min-width: 769px) {
   .hero h1 {
     font-size: clamp(72px, 8vw, 110px);
@@ -584,10 +608,8 @@ font-size: 150px;
     max-width: 45vw;
     max-height: 70vh;
   }
-
 }
 
-/* Small phones ≤ 480px */
 @media (max-width: 480px) {
   .hero h1 {
     font-size: 40px;
@@ -601,143 +623,10 @@ font-size: 150px;
   .nav-links a {
     font-size: 0.9rem;
   }
-
-}
-
-
-
-
-.projects {
-  padding: 2rem;
-  text-align: center;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.project-card {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
-  transition: transform 0.2s ease;
-}
-
-.project-card:hover {
-  transform: scale(1.03);
-}
-
-/* ======================================== */
-.contact-intro {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-.social-links a {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: var(--color-background-light);
-  border-radius: 50px;
-  text-decoration: none;
-  color: var(--color-text);
-  font-weight: 500;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.social-links a img {
-  width: 24px;
-  height: 24px;
-}
-
-.social-links a:hover {
-  transform: translateY(-3px);
-  background: var(--color-accent-light);
 }
 
 /* ===================================
-Root Variables & Fonts
-=================================== */
-:root {
-  /* existing vars unchanged */
-  --grid-gap: 1.5rem;
-  /* for grid layouts */
-}
-
-/* ===================================
-Global Grid Utility (NEW)
-=================================== */
-.grid {
-  display: grid;
-  grid-gap: var(--grid-gap);
-}
-
-/* Example: Projects section using CSS Grid instead of flex */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--grid-gap);
-}
-
-/* ===================================
-Hero Animations with Keyframes (NEW)
-=================================== */
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-}
-
-.hero .intro {
-  animation: fadeSlideIn 0.8s ease-out forwards;
-}
-
-#hero-bold {
-  animation: fadeSlideIn 0.8s ease-out 0.15s forwards;
-}
-
-#hero-outline {
-  animation: fadeSlideIn 0.8s ease-out 0.3s forwards;
-}
-
-/* Logical spacing instead of fixed directions */
-section {
-  padding-block: 4rem;
-  /* replaces padding-top/bottom */
-  padding-inline: 2rem;
-  /* replaces padding-left/right */
-}
-
-/* ===================================
-CSS Filters & Blend Modes (NEW)
-=================================== */
-.hero-img.hover-effect:hover {
-  filter: grayscale(0.4) contrast(1.2) brightness(1.1);
-  mix-blend-mode: multiply;
-  transition: filter 0.4s ease;
-}
-
-/* ===================================
-Print Styles (NEW)
+   Print Styles
 =================================== */
 @media print {
 
@@ -748,17 +637,117 @@ Print Styles (NEW)
   }
 
   body {
-    color: black;
-    background: white;
+    color: #000;
+    background: #fff;
   }
 
   h1,
   h2,
   h3 {
-    color: black;
+    color: #000;
     -webkit-text-stroke: 0;
   }
 }
 
 
+/* ================================
+   Contact Page Styling
+================================ */
+.contact {
+  text-align: center;
+  padding-block: 6rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
+.contact h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 6rem);
+  margin-bottom: 1rem;
+  color: var(--black);
+}
+
+.contact-intro {
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+/* Highlighted email link */
+.contact-email {
+  margin-bottom: 3rem;
+}
+
+.email-link {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.email-link:hover {
+  color: var(--color-gray);
+  border-color: var(--color-accent);
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 40px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-text);
+  border: 1px solid var(--color-gray);
+  background: var(--color-bg);
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.social-links a img {
+  width: 22px;
+  height: 22px;
+}
+
+.social-links a:hover {
+  transform: translateY(-4px);
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+/* Dark Mode adjustments */
+body.dark-mode .contact h1 {
+  color: #fff;
+}
+
+body.dark-mode .contact-intro {
+  color: #bbb;
+}
+
+body.dark-mode .email-link {
+  color: #fff;
+}
+
+body.dark-mode .social-links a {
+  color: #fff;
+  border-color: #666;
+  background: #111;
+}
+
+body.dark-mode .social-links a:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}

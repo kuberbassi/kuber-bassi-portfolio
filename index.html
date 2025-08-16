@@ -6,44 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuber Bassi - Technology & Creativity - India</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- ========== Favicon ========== -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
 
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <!-- ========== Main Stylesheet ========== -->
+    <link rel="stylesheet" href="style.css" />
 
-    <!-- -- Font -- -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ========== Google Fonts ========== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Audiowide&family=Baumans&family=Boldonse&family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Iceberg&family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Kelly+Slab&family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&family=Righteous&family=Sirin+Stencil&family=Tektur:wght@400..900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
 </head>
 
 <body>
     <div class="container">
 
-        <!-- Navbar -->
+        <!-- ===================================
+         Navbar
+    =================================== -->
         <header class="navbar">
-            <div class="logo"><a href="/index.html">Kuber Bassi</a></div>
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/index.html">Kuber Bassi</a>
+            </div>
 
+            <!-- Mobile Menu Toggle -->
             <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
 
+            <!-- Navigation Links -->
             <ul class="nav-links">
                 <li><a href="/about.html">About</a></li>
                 <li><a href="/projects.html">Projects</a></li>
                 <li><a href="/contact.html">Contact</a></li>
             </ul>
 
+            <!-- Navbar Actions -->
             <div class="nav-actions">
+                <!-- Theme Toggle -->
                 <button class="theme-toggle" aria-label="Toggle theme">
-                    <img src="images/dark mode.png" alt="Toggle theme">
+                    <img src="images/dark mode.png" alt="Toggle theme" />
                 </button>
+
+                <!-- Contact Button -->
                 <a href="mailto:kuberbassi2007@gmail.com" class="contact-btn">Email Me</a>
             </div>
         </header>
 
-        <!-- Hero Section -->
+        <!-- ===================================
+         Hero Section
+    =================================== -->
         <section class="hero" id="hero">
             <div class="hero-content">
 
@@ -52,19 +65,19 @@
                     👋, my name is Kuber Bassi and I am an innovator in
                 </p>
 
-                <!-- Bold heading (front) -->
+                <!-- Bold Heading (front) -->
                 <h1 id="hero-bold" class="bold-text">Technology</h1>
 
-                <!-- Image (middle) -->
-                <img id="hero-img" class="hero-img" src="images/Kuber.png" alt="Portrait of Kuber Bassi">
+                <!-- Hero Image (middle layer) -->
+                <img id="hero-img" class="hero-img" src="images/Kuber.png" alt="Portrait of Kuber Bassi" />
 
-                <!-- Outline heading (behind) -->
+                <!-- Outline Heading (background) -->
                 <h1 id="hero-outline" class="outline-text">&amp; Creativity</h1>
 
                 <!-- Location -->
                 <p id="hero-location" class="location">Based in New Delhi, India</p>
 
-                <!-- Buttons -->
+                <!-- Hero Buttons -->
                 <div id="hero-buttons" class="hero-buttons">
                     <a href="/projects.html" class="btn dark">See My Work</a>
                     <a href="/contact.html" class="btn light">Contact Me</a>
@@ -73,9 +86,11 @@
         </section>
     </div>
 
-    <!-- Scripts -->
+    <!-- ===================================
+       Scripts
+  =================================== -->
     <script>
-        // Mobile menu toggle
+        // ----- Mobile Menu Toggle -----
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
@@ -96,7 +111,7 @@
             });
         }
 
-        // Theme toggle
+        // ----- Theme Toggle -----
         const themeToggleBtn = document.querySelector('.theme-toggle');
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
@@ -104,14 +119,14 @@
             });
         }
 
-        // Page scroll control (disable only on index)
+        // ----- Page Scroll Control -----
         if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "auto";
         }
 
-        // Bold heading hover effect
+        // ----- Bold Heading Hover Effect -----
         const heroBold = document.getElementById('hero-bold');
         heroBold?.addEventListener('mouseenter', () => {
             heroBold.classList.toggle('active');
