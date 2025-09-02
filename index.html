@@ -1,137 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kuber Bassi - Technology & Creativity - India</title>
-
-    <!-- ========== Favicon ========== -->
+    <title>Kuber Bassi - Technology & Creativity</title>
+    
     <link rel="icon" type="image/png" href="images/favicon.png" />
-
-    <!-- ========== Main Stylesheet ========== -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    
     <link rel="stylesheet" href="style.css" />
-
-    <!-- ========== Google Fonts ========== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Baumans&family=Boldonse&family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Iceberg&family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Kelly+Slab&family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&family=Righteous&family=Sirin+Stencil&family=Tektur:wght@400..900&display=swap"
-        rel="stylesheet" />
 </head>
-
 <body>
-    <div class="container">
+    <div class="mouse-glow"></div>
 
-        <!-- ===================================
-         Navbar
-    =================================== -->
+    <div class="site-container">
         <header class="navbar">
-            <!-- Logo -->
             <div class="logo">
-                <a href="/index.html">Kuber Bassi</a>
+                <a href="#">Kuber Bassi</a>
             </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
-
-            <!-- Navigation Links -->
-            <ul class="nav-links">
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/projects.html">Projects</a></li>
-                <li><a href="/contact.html">Contact</a></li>
-            </ul>
-
-            <!-- Navbar Actions -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
             <div class="nav-actions">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" aria-label="Toggle theme">
-                    <img src="images/dark mode.png" alt="Toggle theme" />
-                </button>
-
-                <!-- Contact Button -->
-                <a href="mailto:kuberbassi2007@gmail.com" class="contact-btn">Email Me</a>
+                <a href="mailto:kuberbassi2007@gmail.com" class="cta-button">Email Me</a>
             </div>
         </header>
 
-        <!-- ===================================
-         Hero Section
-    =================================== -->
-        <section class="hero" id="hero">
-            <div class="hero-content">
-
-                <!-- Intro -->
-                <p class="intro" id="hero-intro">
-                    👋, my name is Kuber Bassi and I am an innovator in
-                </p>
-
-                <!-- Bold Heading (front) -->
-                <h1 id="hero-bold" class="bold-text">Technology</h1>
-
-                <!-- Hero Image (middle layer) -->
-                <img id="hero-img" class="hero-img" src="images/Kuber.png" alt="Portrait of Kuber Bassi" />
-
-                <!-- Outline Heading (background) -->
-                <h1 id="hero-outline" class="outline-text">&amp; Creativity</h1>
-
-                <!-- Location -->
-                <p id="hero-location" class="location">Based in New Delhi, India</p>
-
-                <!-- Hero Buttons -->
-                <div id="hero-buttons" class="hero-buttons">
-                    <a href="/projects.html" class="btn dark">See My Work</a>
-                    <a href="/contact.html" class="btn light">Contact Me</a>
+        <main class="content-wrapper">
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>
+                            Innovator in<br>
+                            <span class="highlight-cyan">Technology</span> &amp; <span class="highlight-pink">Creativity</span>
+                        </h1>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <section class="content-section" id="about">
+                <div class="section-container">
+                    <h2 class="section-title">Code, Chords & Creativity</h2>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <p>
+                                I'm a developer-in-progress pursuing a B.Tech in Computer Science at GGSIPU, HMRITM. My passion lies at the intersection of logic and imagination—building robust, elegant solutions that are both functional and human-centric. I thrive on debugging complex problems and turning abstract ideas into tangible digital experiences.
+                            </p>
+                            <p>
+                                When I'm not coding, I'm usually producing music or with my guitar. This creative outlet isn't just a hobby; it fundamentally shapes my approach to development. Crafting a melody and structuring an application both require harmony, rhythm, and a deep understanding of how individual components come together to form a cohesive whole.
+                            </p>
+                        </div>
+                        </div>
+                </div>
+            </section>
+
+            <section class="content-section" id="projects">
+                <div class="section-container">
+                    <h2 class="section-title">My Recent Work</h2>
+                    <p class="section-subtitle">
+                        A selection of projects from my GitHub, fetched automatically.
+                    </p>
+                    <div class="projects-grid" id="projects-grid">
+                        <p class="loading-text">Fetching projects from GitHub...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <!-- ===================================
-       Scripts
-  =================================== -->
-    <script>
-        // ----- Mobile Menu Toggle -----
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                navLinks.classList.toggle('show');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (navLinks.classList.contains('show') && !navLinks.contains(e.target) && e.target !== menuToggle) {
-                    navLinks.classList.remove('show');
-                }
-            });
-
-            navLinks.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A') navLinks.classList.remove('show');
-            });
-        }
-
-        // ----- Theme Toggle -----
-        const themeToggleBtn = document.querySelector('.theme-toggle');
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-            });
-        }
-
-        // ----- Page Scroll Control -----
-        if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "auto";
-        }
-
-        // ----- Bold Heading Hover Effect -----
-        const heroBold = document.getElementById('hero-bold');
-        heroBold?.addEventListener('mouseenter', () => {
-            heroBold.classList.toggle('active');
-        });
-    </script>
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
 </body>
-
 </html>
