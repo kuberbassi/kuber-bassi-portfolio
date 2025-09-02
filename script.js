@@ -66,3 +66,54 @@ window.addEventListener('mousemove', (e) => {
         glow.style.top = `${e.clientY}px`;
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Replace with your GitHub username
+    const githubUsername = "kuberbassi"; 
+    
+    const projectImages = {
+        "Attendance-Tracker": "images/project-attendance.jpg", // Example
+        "kuber-bassi-portfolio": "/projects/images/portfolio-proj.png", // Example
+        // Add all the projects you want to display here
+    };
+
+    const apiUrl = `https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=9`;
+    const projectsContainer = document.getElementById('projects-container');
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(repos => {
+            projectsContainer.innerHTML = ''; // Clear the loading text
+
+            repos.forEach(repo => {
+                // Filter to hide forks, projects without images, and the portfolio itself
+                if (repo.fork || !projectImages[repo.name] || repo.name === 'kuber-bassi-portfolio') {
+                    return; 
+                }
+
+                const projectItem = document.createElement('div');
+                projectItem.classList.add('project-item');
+                
+                const tagsHTML = repo.topics.map(topic => `<span class="project-tag">${topic}</span>`).join('');
+
+                projectItem.innerHTML = `
+                    <div class="project-card">
+                        <img src="${projectImages[repo.name]}" alt="${repo.name}">
+                        <a href="${repo.html_url}" class="project-info-overlay" target="_blank" rel="noopener noreferrer">
+                            <div class="project-text">
+                                <h3 class="project-title">${repo.name}</h3>
+                                <div class="project-tags">
+                                    ${tagsHTML}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                projectsContainer.appendChild(projectItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching GitHub repos:', error);
+            projectsContainer.innerHTML = '<p class="loading-text">Failed to load projects.</p>';
+        });
+});

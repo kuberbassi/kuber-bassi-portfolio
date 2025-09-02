@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuber Bassi - Technology & Creativity</title>
-    
+
     <link rel="icon" type="image/png" href="images/favicon.png" />
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    
+
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
     <div class="mouse-glow"></div>
 
@@ -42,7 +44,8 @@
                     <div class="hero-text">
                         <h1>
                             Innovator in<br>
-                            <span class="highlight-cyan">Technology</span> &amp; <span class="highlight-pink">Creativity</span>
+                            <span class="highlight-cyan">Technology</span> &amp; <span
+                                class="highlight-pink">Creativity</span>
                         </h1>
                     </div>
                 </div>
@@ -50,35 +53,82 @@
 
             <section class="content-section" id="about">
                 <div class="section-container">
-                    <h2 class="section-title">Code, Chords & Creativity</h2>
-                    <div class="about-content">
-                        <div class="about-text">
-                            <p>
-                                I'm a developer-in-progress pursuing a B.Tech in Computer Science at GGSIPU, HMRITM. My passion lies at the intersection of logic and imagination—building robust, elegant solutions that are both functional and human-centric. I thrive on debugging complex problems and turning abstract ideas into tangible digital experiences.
-                            </p>
-                            <p>
-                                When I'm not coding, I'm usually producing music or with my guitar. This creative outlet isn't just a hobby; it fundamentally shapes my approach to development. Crafting a melody and structuring an application both require harmony, rhythm, and a deep understanding of how individual components come together to form a cohesive whole.
-                            </p>
+                    <div class="about-layout">
+                        <div class="about-label">
+                            <span>Who I am</span>
                         </div>
+                        <div class="about-main-text">
+                            <h2>I'm a developer and musician, blending logic with imagination to build elegant and
+                                human-centric digital experiences.</h2>
                         </div>
+                    </div>
                 </div>
             </section>
 
             <section class="content-section" id="projects">
                 <div class="section-container">
                     <h2 class="section-title">My Recent Work</h2>
-                    <p class="section-subtitle">
-                        A selection of projects from my GitHub, fetched automatically.
-                    </p>
-                    <div class="projects-grid" id="projects-grid">
-                        <p class="loading-text">Fetching projects from GitHub...</p>
+                    <p class="section-subtitle">A selection of projects from my GitHub.</p>
+
+                    <div class="projects-scroll-wrapper">
+                        <div class="projects-container" id="projects-container">
+                            <p class="loading-text">Fetching projects from GitHub...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-section" id="contact">
+                <div class="section-container">
+                    <h2 class="section-title">Let's Connect</h2>
+                    <p class="section-subtitle">Find me across the web and let's build something together.</p>
+
+                    <div class="contact-grid">
+                        <a href="https://github.com/kuberbassi" target="_blank" rel="noopener noreferrer"
+                            class="contact-card">
+                            <i class="fab fa-github"></i>
+                            <h3>GitHub</h3>
+                            <p>Explore my code repositories</p>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/kuberbassi/" target="_blank" rel="noopener noreferrer"
+                            class="contact-card">
+                            <i class="fab fa-linkedin"></i>
+                            <h3>LinkedIn</h3>
+                            <p>Connect professionally</p>
+                        </a>
+
+                        <a href="https://www.instagram.com/kuber.bassi/" target="_blank" rel="noopener noreferrer"
+                            class="contact-card">
+                            <i class="fab fa-instagram"></i>
+                            <h3>Instagram</h3>
+                            <p>Behind-the-scenes & creative flow</p>
+                        </a>
+
+                        <a href="https://www.youtube.com/@KuberB/" target="_blank" rel="noopener noreferrer"
+                            class="contact-card">
+                            <i class="fab fa-youtube"></i>
+                            <h3>YouTube</h3>
+                            <p>Music, tech & creative explorations</p>
+                        </a>
+
+                        <a href="mailto:kuberbassi2007@gmail.com" class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email</h3>
+                            <p>Direct inquiries & collaborations</p>
+                        </a>
                     </div>
                 </div>
             </section>
         </main>
+        <footer class="site-footer">
+            <p>&copy; 2025 Kuber Bassi. All Rights Reserved.</p>
+        </footer>
     </div>
-
-    <script src="script.js"></script>
-    <script src="animations.js"></script>
 </body>
+</div>
+
+<script src="script.js"></script>
+<script src="animations.js"></script>
+</body>
+
 </html>

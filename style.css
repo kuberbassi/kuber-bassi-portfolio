@@ -74,18 +74,18 @@ html {
   align-items: center;
   gap: 2rem;
 
-  background-color: rgba(10, 10, 10, 0.75);
+  background-color: rgba(255, 255, 255);
   backdrop-filter: blur(10px);
   padding: 20px 35px;
   border-radius: 50px;
-  border: 1px solid var(--border-color);
+  /* border: 1px solid var(--border-color); */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .logo a {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 1.1rem;
-  color: var(--text-color);
+  color: black;
   text-decoration: none;
   letter-spacing: -0.5px;
 }
@@ -97,16 +97,10 @@ html {
 }
 
 .nav-links a {
-  color: var(--text-color);
+  color: black;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.nav-links a:hover {
-  opacity: 1;
 }
 
 .cta-button {
@@ -268,7 +262,7 @@ body.loaded .hero-text .line:nth-child(3) span {
 /* ===================================
    6. MOUSE GLOW EFFECT
 =================================== */
-.mouse-glow {
+/* .mouse-glow {
   position: fixed;
   top: 0;
   left: 0;
@@ -278,12 +272,12 @@ body.loaded .hero-text .line:nth-child(3) span {
   border-radius: 50%;
   pointer-events: none;
   /* Allows you to click through it */
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%);
   z-index: 0;
   filter: blur(20px);
-  transition: width 0.3s ease, height 0.3s ease;
+  transition: width 0.3s ease, height 0.3s ease; */
   /* Smooth size change on click */
-}
+
 
 /* Add this to the end of style.css */
 
@@ -303,10 +297,10 @@ body.loaded .hero-text .line:nth-child(3) span {
   /* Generous padding inside the container */
 
   /* This is what creates the container effect */
-  background-color: #080808;
+  /* background-color: #080808; */
   /* A slightly lighter black for contrast */
-  border: 1px solid var(--border-color);
-  border-radius: 15px;
+  /* border: 1px solid var(--border-color);
+  border-radius: 15px; */
   /* Matches your site's main border radius */
 
   /* A subtle shadow to lift it off the page */
@@ -344,11 +338,11 @@ body.loaded .hero-text .line:nth-child(3) span {
 }
 
 
-/* --- About Section Specifics --- */
+/* --- About Section Specifics ---
 .about-content {
   display: flex;
   /* Or use display: grid for more complex layouts */
-  justify-content: center;
+  /* justify-content: center;
   text-align: center;
 }
 
@@ -364,84 +358,227 @@ body.loaded .hero-text .line:nth-child(3) span {
 
 .about-text p:last-child {
   margin-top: 1.5rem;
+} */
+
+/* In style.css, replace your old 'About Section' styles with this */
+
+/* --- About Section Specifics --- */
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Creates a 1:3 ratio for the columns */
+    align-items: start; /* Aligns items to the top */
+    gap: 2rem; /* Space between the label and the main text */
+    max-width: 900px; /* Controls the overall width */
+    margin: 0 auto; /* Centers the layout in the section */
+}
+
+/* The small "Who I am" label on the left */
+.about-label {
+    padding-top: 0.5rem; /* Aligns the text better with the main headline */
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    text-transform: uppercase;
+    position: relative;
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+/* The horizontal line next to the label */
+.about-label::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 1rem;
+    width: 80px; /* Adjust the line length as you like */
+    height: 1px;
+    background-color: var(--border-color);
+    margin-left: -110px;
+}
+
+/* The main headline text on the right */
+.about-main-text h2 {
+    font-family: var(--heading-font);
+    font-size: clamp(2rem, 4vw, 2.75rem); /* Responsive font size */
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text-color);
 }
 
 
 /* --- Projects Section Specifics --- */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+
+.projects-scroll-wrapper {
+    overflow-x: auto; /* Re-enables horizontal scrolling */
+    padding-bottom: 1rem; 
+}
+
+/* Custom scrollbar for a cleaner look */
+.projects-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.projects-scroll-wrapper::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+}
+.projects-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+.projects-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.projects-container {
+    display: flex;
+    width: max-content;
+    gap: 3rem; /* The gap between projects */
+}
+
+.project-item {
+    width: 60vw;
+    max-width: 550px;
+    flex-shrink: 0;
 }
 
 .project-card {
-  background-color: #111111;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    height: 350px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-out;
 }
 
-.project-card h3 {
-  font-family: var(--heading-font);
-  font-size: 1.4rem;
-  margin-bottom: 0.75rem;
-  color: var(--text-color);
+.project-card:hover img {
+    transform: scale(1.05);
 }
 
-.project-card p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  opacity: 0.8;
-  flex-grow: 1;
-  /* Pushes the footer down */
-  margin-bottom: 1.5rem;
+.project-info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0) 60%);
 }
 
-.project-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
+.project-text {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-.project-stats span {
-  margin-right: 1rem;
-  opacity: 0.7;
+.project-card:hover .project-text {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.project-stats i {
-  color: var(--accent-primary);
-  margin-right: 0.5rem;
+.project-title {
+    font-family: var(--heading-font);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 0.5rem 0;
 }
 
-.project-links a {
-  color: var(--text-color);
-  text-decoration: none;
-  font-weight: 500;
-  border: 1px solid var(--border-color);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.project-links a:hover {
-  background-color: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: #FFFFFF;
+.project-tag {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-.loading-text {
-  text-align: center;
-  grid-column: 1 / -1;
-  /* Makes it span the full grid width */
-  font-size: 1.2rem;
-  opacity: 0.8;
+/* Add this to the end of your style.css */
+
+/* In style.css, replace ALL your old 'Contact Section' styles with this */
+
+/* --- Contact Section Specifics --- */
+
+.contact-container {
+    text-align: center; /* Center the title and subtitle */
+}
+
+.section-subtitle { /* Ensure subtitle is styled for contact section too */
+    margin-bottom: 4rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 1.5rem; /* Space between cards */
+    max-width: 900px; /* Control overall grid width */
+    margin: 0 auto; /* Center the grid */
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-align: center;
+    
+    background-color: #080808; /* Slightly lighter black for card background */
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    text-decoration: none; /* Remove underline from links */
+    color: var(--text-color);
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-8px); /* Lift card on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    background-color: #111111; /* Slightly darker on hover */
+}
+
+.contact-card i {
+    font-size: 2.5rem; /* Large icons */
+    margin-bottom: 1.5rem;
+    color: var(--accent-primary); /* Your pink accent for icons */
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover i {
+    color: #00FFFF; /* Cyan accent on icon hover */
+}
+
+.contact-card h3 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.contact-card p {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    line-height: 1.5;
+}
+
+/* --- Footer --- */
+.site-footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.5;
+    border-top: 1px solid var(--border-color);
 }
