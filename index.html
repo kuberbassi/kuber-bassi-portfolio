@@ -2,133 +2,348 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kuber Bassi - Technology & Creativity</title>
-
-    <link rel="icon" type="image/png" href="images/favicon.png" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuber Bassi</title>
+    <link rel="icon" type="image/png" href="/dev/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-dark: #0a0a0a;
+            --color-light: #fefefe;
+            --color-accent-dev: #3b82f6;
+            --color-accent-artist: #d32087;
+            /* Magenta/Purple for artist */
+            --color-muted: #aaa;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+        }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="style.css" />
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-dark);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .split-panel {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transition: flex 0.8s cubic-bezier(0.8, 0, 0.2, 1), opacity 0.5s ease;
+        }
+
+        .split-panel a {
+            text-decoration: none;
+            color: var(--color-light);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Developer Panel Styling --- */
+        #dev-background {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .dev-grid-line {
+            position: absolute;
+            background-color: rgba(59, 130, 246, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .dev-grid-line.vertical {
+            width: 1px;
+            height: 100%;
+            left: var(--left);
+        }
+
+        .dev-grid-line.horizontal {
+            height: 1px;
+            width: 100%;
+            top: var(--top);
+        }
+
+        .dev-panel:hover .dev-grid-line {
+            background-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .panel-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s ease, letter-spacing 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .dev-panel:hover .panel-heading {
+            transform: scale(1.05);
+            letter-spacing: 0.05em;
+            color: var(--color-accent-dev);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+
+        /* --- Artist Panel Styling --- */
+        #artist-background {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(circle at 50% 50%, #2c0b3f, #0a0a0a 70%);
+            animation: aurora 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes aurora {
+            0% {
+                background: radial-gradient(circle at 20% 80%, #3a1a4e, #0a0a0a 70%);
+            }
+
+            50% {
+                background: radial-gradient(circle at 80% 30%, #1e295e, #0a0a0a 70%);
+            }
+
+            100% {
+                background: radial-gradient(circle at 50% 50%, #4d1c4a, #0a0a0a 70%);
+            }
+        }
+
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            will-change: transform;
+        }
+
+        .artist-panel:hover .panel-heading {
+            transform: scale(1.05);
+            letter-spacing: 0.05em;
+            color: var(--color-accent-artist);
+            text-shadow: 0 0 15px var(--color-light), 0 0 30px var(--color-accent-artist);
+        }
+
+        /* --- Global Hover Effects --- */
+        .split-container.active:hover .split-panel {
+            filter: blur(2px) grayscale(50%);
+        }
+
+        .split-container.active .split-panel:hover {
+            flex: 1.5;
+            filter: blur(0px) grayscale(0%);
+        }
+
+        .panel-subtext {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--color-muted);
+            margin-top: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+        }
+
+        .split-panel:hover .panel-subtext {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .landing-footer {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--color-muted);
+            font-size: 0.85rem;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .split-container.active:hover .split-panel {
+                filter: none;
+            }
+
+            .split-container.active .split-panel:hover {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="mouse-glow"></div>
 
-    <div class="site-container">
-        <header class="navbar">
-            <div class="logo">
-                <a href="#">Kuber Bassi</a>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="nav-actions">
-                <a href="mailto:kuberbassi2007@gmail.com" class="cta-button">Email Me</a>
-            </div>
-        </header>
+    <main class="split-container active">
 
-        <main class="content-wrapper">
-            <section class="hero" id="home">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>
-                            Innovator in<br>
-                            <span class="highlight-cyan">Technology</span> &amp; <span
-                                class="highlight-pink">Creativity</span>
-                        </h1>
-                    </div>
-                </div>
-            </section>
+        <div class="split-panel dev-panel">
+            <div id="dev-background"></div>
+            <a href="/dev-portfolio/">
+                <h2 class="panel-heading">Developer</h2>
+                <span class="panel-subtext">Technology & Code</span>
+            </a>
+        </div>
 
-            <section class="content-section" id="about">
-                <div class="section-container">
-                    <div class="about-layout">
-                        <div class="about-label">
-                            <span>Who I am</span>
-                        </div>
-                        <div class="about-main-text">
-                            <h2>I'm a developer and musician, blending logic with imagination to build elegant and
-                                human-centric digital experiences.</h2>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div class="split-panel artist-panel">
+            <div id="artist-background"></div>
+            <a href="/music-portfolio/">
+                <h2 class="panel-heading">Artist</h2>
+                <span class="panel-subtext">Music & Sound</span>
+            </a>
+        </div>
 
-            <section class="content-section" id="projects">
-                <div class="section-container">
-                    <h2 class="section-title">My Recent Work</h2>
-                    <p class="section-subtitle">A selection of projects from my GitHub.</p>
+    </main>
 
-                    <div class="projects-scroll-wrapper">
-                        <div class="projects-container" id="projects-container">
-                            <p class="loading-text">Fetching projects from GitHub...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="content-section" id="contact">
-                <div class="section-container">
-                    <h2 class="section-title">Let's Connect</h2>
-                    <p class="section-subtitle">Find me across the web and let's build something together.</p>
+    <footer class="landing-footer">
+        &copy; 2025 Kuber Bassi
+    </footer>
 
-                    <div class="contact-grid">
-                        <a href="https://github.com/kuberbassi" target="_blank" rel="noopener noreferrer"
-                            class="contact-card">
-                            <i class="fab fa-github"></i>
-                            <h3>GitHub</h3>
-                            <p>Explore my code repositories</p>
-                        </a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-                        <a href="https://www.linkedin.com/in/kuberbassi/" target="_blank" rel="noopener noreferrer"
-                            class="contact-card">
-                            <i class="fab fa-linkedin"></i>
-                            <h3>LinkedIn</h3>
-                            <p>Connect professionally</p>
-                        </a>
+            if (!isMobile) {
+                setupDevBackground();
+                setupArtistBackground();
+            }
+            setupPageTransition();
 
-                        <a href="https://www.instagram.com/kuber.bassi/" target="_blank" rel="noopener noreferrer"
-                            class="contact-card">
-                            <i class="fab fa-instagram"></i>
-                            <h3>Instagram</h3>
-                            <p>Behind-the-scenes & creative flow</p>
-                        </a>
+            function setupDevBackground() {
+                const container = document.getElementById('dev-background');
+                if (!container) return;
+                const panelRect = container.getBoundingClientRect();
+                const gridSize = 40;
 
-                        <a href="https://www.youtube.com/@KuberB/" target="_blank" rel="noopener noreferrer"
-                            class="contact-card">
-                            <i class="fab fa-youtube"></i>
-                            <h3>YouTube</h3>
-                            <p>Music, tech & creative explorations</p>
-                        </a>
+                for (let i = 0; i <= panelRect.width / gridSize; i++) {
+                    const line = document.createElement('div');
+                    line.classList.add('dev-grid-line', 'vertical');
+                    line.style.setProperty('--left', `${i * gridSize}px`);
+                    container.appendChild(line);
+                }
+                for (let i = 0; i <= panelRect.height / gridSize; i++) {
+                    const line = document.createElement('div');
+                    line.classList.add('dev-grid-line', 'horizontal');
+                    line.style.setProperty('--top', `${i * gridSize}px`);
+                    container.appendChild(line);
+                }
+            }
 
-                        <a href="mailto:kuberbassi2007@gmail.com" class="contact-card">
-                            <i class="fas fa-envelope"></i>
-                            <h3>Email</h3>
-                            <p>Direct inquiries & collaborations</p>
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <footer class="site-footer">
-            <p>&copy; 2025 Kuber Bassi. All Rights Reserved.</p>
-        </footer>
-    </div>
-</body>
-</div>
+            function setupArtistBackground() {
+                const container = document.getElementById('artist-background');
+                if (!container) return;
+                const numOrbs = 20;
 
-<script src="script.js"></script>
-<script src="animations.js"></script>
+                for (let i = 0; i < numOrbs; i++) {
+                    const orb = document.createElement('div');
+                    orb.classList.add('glowing-orb');
+                    const size = Math.random() * 150 + 50; // 50-200px
+                    const hue = Math.random() * 60 + 250; // Purples and magentas
+                    orb.style.width = `${size}px`;
+                    orb.style.height = `${size}px`;
+                    orb.style.left = `${Math.random() * 100}%`;
+                    orb.style.top = `${Math.random() * 100}%`;
+                    orb.style.backgroundColor = `hsla(${hue}, 80%, 60%, 0.4)`;
+                    orb.style.boxShadow = `0 0 ${size / 2}px hsla(${hue}, 80%, 60%, 0.4)`;
+                    orb.style.filter = `blur(${size / 4}px)`;
+                    container.appendChild(orb);
+
+                    gsap.to(orb, {
+                        x: `random(-200, 200)`,
+                        y: `random(-200, 200)`,
+                        scale: `random(0.8, 1.2)`,
+                        duration: `random(15, 25)`,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: 'sine.inOut'
+                    });
+                }
+            }
+
+            function splitTextIntoChars(element) {
+                if (element.dataset.split) return; // Prevent re-splitting
+                const text = element.textContent;
+                element.innerHTML = text.split('').map(char => `<span class="char" style="display:inline-block;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+                element.dataset.split = true;
+                return element.querySelectorAll('.char');
+            }
+
+            function setupPageTransition() {
+                const links = document.querySelectorAll('.split-panel a');
+
+                links.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const destination = link.href;
+                        const clickedPanel = link.parentElement;
+                        const otherPanel = clickedPanel.classList.contains('dev-panel') ? document.querySelector('.artist-panel') : document.querySelector('.dev-panel');
+                        const heading = clickedPanel.querySelector('.panel-heading');
+                        const chars = splitTextIntoChars(heading);
+
+                        const tl = gsap.timeline({
+                            onComplete: () => window.location.href = destination
+                        });
+
+                        tl.set('.split-container', { className: 'split-container' }) // Remove .active class
+                            .to(otherPanel, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, 0)
+                            .to([link.querySelector('.panel-subtext'), '.landing-footer'], { opacity: 0, duration: 0.3 }, 0)
+                            .to(chars, {
+                                y: `random(-200, 200)`,
+                                x: `random(-300, 300)`,
+                                scale: `random(0.5, 1.5)`,
+                                rotation: `random(-180, 180)`,
+                                opacity: 0,
+                                duration: 1.2,
+                                ease: 'power2.out',
+                                stagger: 0.02
+                            }, 0);
+
+                        if (clickedPanel.classList.contains('dev-panel')) {
+                            tl.to('.dev-grid-line', {
+                                scale: 0,
+                                opacity: 0,
+                                duration: 1,
+                                ease: 'expo.out',
+                                stagger: { amount: 0.5, from: 'center' }
+                            }, 0.2);
+                        } else {
+                            tl.to('.glowing-orb', {
+                                scale: 0,
+                                opacity: 0,
+                                duration: 1,
+                                ease: 'expo.out',
+                                stagger: { amount: 0.5, from: 'center' }
+                            }, 0.2);
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
