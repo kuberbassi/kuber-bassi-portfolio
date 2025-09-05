@@ -18,10 +18,9 @@
 
     <header class="main-header">
         <a href="#hero" class="logo magnetic">KUβER βΔSSI*</a>
-        <div class="header-info">
-            <span>UI/UX DESIGNER</span>
-            <span>WEBSITE DESIGNER</span>
-        </div>
+        <a href="../index.html" class="hub-button magnetic" title="Back to Choices">
+            <i class="fas fa-th"></i>
+        </a>
         <div class="header-tagline">
             <span>PROGRESS ISN'T A GOAL,</span>
             <span>IT'S A RHYTHM.</span>
@@ -31,14 +30,14 @@
     <nav class="dot-nav">
         <ul>
             <li><a href="#hero" class="magnetic dot-link active" data-tooltip="Home"></a></li>
-            <li><a href="#about" class="magnetic dot-link" data-tooltip="About"></a></li>
+            <li><a href="#videos" class="magnetic dot-link" data-tooltip="Videos"></a></li>
             <li><a href="#music" class="magnetic dot-link" data-tooltip="Music"></a></li>
             <li><a href="#contact" class="magnetic dot-link" data-tooltip="Contact"></a></li>
         </ul>
     </nav>
 
     <main id="main-container">
-        <section id="hero">
+        <section id="hero" data-section-theme="dark">
             <div class="hero-bg-image"><img src="/music-portfolio/assets/images/stealthy-kb.png" alt="Kuber Bassi"></div>
             <div class="hero-bg-text">SOUND</div>
             <div class="hero-content">
@@ -53,24 +52,33 @@
                     </div>
                 </div>
             </div>
-            <div class="scroll-down-indicator"><div class="arrow-down"></div></div>
+            <div class="scroll-down-indicator"></div>
         </section>
         
-        <section id="about"></section>
-
-        <section id="music">
-            <div id="music-galaxy">
-                <div class="galaxy-canvas">
+        <section id="videos" data-section-theme="light">
+            <div class="container">
+                <h2 class="section-title">Videos</h2>
+                <div class="video-grid">
+                    <div class="video-item">
+                        <iframe loading="lazy" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <h3>Video Title One</h3>
                     </div>
+                    <div class="video-item">
+                        <iframe loading="lazy" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <h3>Video Title Two</h3>
+                    </div>
+                </div>
             </div>
-            <div class="song-tooltip">
-                <img src="" alt="Album Art">
-                <h3 class="song-tooltip-title"></h3>
-            </div>
-            <div class="zoom-instructions">Use scroll to zoom</div>
         </section>
 
-        <section id="contact">
+        <section id="music" data-section-theme="dark">
+            <div id="music-catalogue">
+                <div class="catalogue-wrapper">
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact" data-section-theme="dark">
             <div class="contact-content">
                 <h2 class="contact-headline">LET'S CREATE.</h2>
                 <a href="mailto:kuberbassi2007@gmail.com" class="contact-link magnetic">GET IN TOUCH</a>
