@@ -18,16 +18,8 @@ let points = [];
 let mouse = { x: width / 2, y: height / 2, radius: 100 };
 
 class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.originalX = x;
-        this.originalY = y;
-        this.vx = 0;
-        this.vy = 0;
-    }
+    constructor(x, y) { this.x = x; this.y = y; this.originalX = x; this.originalY = y; }
     update() {
-        // Mouse repulsion
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -36,11 +28,8 @@ class Point {
             this.x += (dx / dist) * force * 2;
             this.y += (dy / dist) * force * 2;
         }
-        // Spring back to origin
         this.x += (this.originalX - this.x) * 0.1;
         this.y += (this.originalY - this.y) * 0.1;
-
-        // Random glitch
         if (Math.random() < 0.005) {
             this.x += (Math.random() - 0.5) * 10;
             this.y += (Math.random() - 0.5) * 10;
@@ -53,8 +42,8 @@ function initGrid() {
     height = canvas.height = window.innerHeight;
     points = [];
     const gridSize = 30;
-    for (let x = 0; x < width; x += gridSize) {
-        for (let y = 0; y < height; y += gridSize) {
+    for (let x = 0; x < width + gridSize; x += gridSize) {
+        for (let y = 0; y < height + gridSize; y += gridSize) {
             points.push(new Point(x, y));
         }
     }
@@ -66,7 +55,6 @@ function animateGrid() {
         p.update();
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
-        
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -84,10 +72,7 @@ function animateGrid() {
 initGrid();
 animateGrid();
 window.addEventListener('resize', initGrid);
-window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
 
 // --- Custom Cursor ---
@@ -121,53 +106,59 @@ gsap.utils.toArray('section').forEach(section => {
             const link = document.querySelector(`.dot-link[href="#${section.id}"]`);
             if (link) {
                 document.querySelectorAll('.dot-link').forEach(l => l.classList.remove('active'));
-                if (self.isActive) {
-                    link.classList.add('active');
-                }
+                if (self.isActive) link.classList.add('active');
             }
         }
     });
 });
 
-// --- Music Galaxy: "Sonic Galaxy" ---
+// --- Music Galaxy: "Sonic Galaxy" (FIXED) ---
 const galaxy = document.getElementById('music-galaxy');
 const canvasContainer = document.querySelector('.galaxy-canvas');
 const tooltip = document.querySelector('.song-tooltip');
 
-async function setupGalaxy() {
-    try {
-        const response = await fetch('songs.json');
-        if (!response.ok) { // Check if response is not ok
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const songs = await response.json();
+// Your song data is now stored here directly in the script
+const songs = [
+  {
+    "title": "Supercars",
+    "coverArtUrl": "/music-portfolio/assets/images/album-art/Supercars.png"
+  },
+  {
+    "title": "Dosti Ka Silsila",
+    "coverArtUrl": "/music-portfolio/assets/images/album-art/Dosti Ka Silsila.png"
+  },
+  {
+    "title": "Shots",
+    "coverArtUrl": "/music-portfolio/assets/images/album-art/Shots.jpg"
+  },
+  {
+    "title": "NoMercy (Reaper)",
+    "coverArtUrl": "/music-portfolio/assets/images/album-art/Reaper.jpg"
+  }
+  // Add all 64+ of your songs here
+];
+
+function setupGalaxy() {
+    if (!canvasContainer) return;
+    canvasContainer.innerHTML = ''; // Clear previous
+    
+    songs.forEach(song => {
+        const orb = document.createElement('div');
+        orb.className = 'song-orb';
+        orb.style.left = `${Math.random() * 95}%`;
+        orb.style.top = `${Math.random() * 95}%`;
         
-        songs.forEach(song => {
-            const orb = document.createElement('div');
-            orb.className = 'song-orb';
-            orb.style.left = `${Math.random() * 95}%`;
-            orb.style.top = `${Math.random() * 95}%`;
-            
-            orb.addEventListener('mouseenter', (e) => {
-                tooltip.querySelector('img').src = song.coverArtUrl;
-                tooltip.querySelector('h3').textContent = song.title;
-                gsap.to(tooltip, { opacity: 1, duration: 0.3 });
-            });
-            orb.addEventListener('mouseleave', () => {
-                gsap.to(tooltip, { opacity: 0, duration: 0.3 });
-            });
-            
-            canvasContainer.appendChild(orb);
+        orb.addEventListener('mouseenter', () => {
+            tooltip.querySelector('img').src = song.coverArtUrl;
+            tooltip.querySelector('h3').textContent = song.title;
+            gsap.to(tooltip, { opacity: 1, duration: 0.3 });
         });
-    } catch (error) {
-        console.error("Could not load song catalogue:", error);
-        // Display an error message to the user
-        const errorMsg = document.createElement('p');
-        errorMsg.textContent = 'Error loading music catalogue.';
-        errorMsg.style.color = 'var(--color-ui-grey)';
-        errorMsg.style.textAlign = 'center';
-        galaxy.appendChild(errorMsg);
-    }
+        orb.addEventListener('mouseleave', () => {
+            gsap.to(tooltip, { opacity: 0, duration: 0.3 });
+        });
+        
+        canvasContainer.appendChild(orb);
+    });
 }
 
 if (galaxy) {
@@ -175,6 +166,8 @@ if (galaxy) {
 
     // Pan & Zoom Logic
     let isDragging = false, startX, startY, startLeft, startTop;
+    gsap.set(canvasContainer, { x: 0, y: 0 }); // Initialize position
+
     galaxy.addEventListener('mousedown', e => { isDragging = true; galaxy.style.cursor = 'grabbing'; startX = e.pageX; startY = e.pageY; startLeft = gsap.getProperty(canvasContainer, "x"); startTop = gsap.getProperty(canvasContainer, "y"); });
     window.addEventListener('mouseup', () => { isDragging = false; galaxy.style.cursor = 'grab'; });
     window.addEventListener('mousemove', e => {
