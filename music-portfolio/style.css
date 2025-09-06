@@ -1380,9 +1380,8 @@ html {
 }
 
 /* ==========================================================================
-   PERFECTED MOBILE STYLES (For screens 600px and smaller)
+   FINAL MOBILE STYLES (For screens 600px and smaller)
    ========================================================================== */
-
 @media (max-width: 600px) {
 
     /* --- GLOBAL & HEADER --- */
@@ -1392,9 +1391,10 @@ html {
 
     .main-header {
         padding: 0.75rem 1rem;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background-color: transparent;
+        /* Removes the background overlay */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 
     .logo {
@@ -1411,31 +1411,27 @@ html {
         padding-right: 1rem;
     }
 
-    /* --- HERO SECTION AESTHETICS (NEW) --- */
+    /* --- HERO SECTION --- */
     #hero {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        /* This is the key change for vertical alignment */
+        justify-content: flex-end;
+        /* Pushes content to the bottom half, giving breathing room */
         text-align: center;
-        min-height: 90vh;
+        min-height: 100svh;
+        /* Fills the screen, preventing the white bar */
+        padding-bottom: 7rem;
+        /* Adds space for the text and dot nav */
     }
 
     .hero-content {
         position: static;
-        padding: 2rem 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 3.5rem;
-        /* Creates a clean separation between the two lists */
+        padding: 0;
+        gap: 2.5rem;
     }
 
     .hero-bg-image img {
-        height: 75%;
         opacity: 0.3;
-        /* Darkens the image for better text contrast */
     }
 
     .grid-item h4 {
@@ -1451,23 +1447,23 @@ html {
     }
 
     .grid-item ul li {
-        font-size: 1.1rem;
-        /* Makes your key skills more impactful */
+        font-size: 1rem;
+        /* Balanced font size that's not "in your face" */
         font-weight: 500;
-        line-height: 2.2;
-        /* Prevents text overlap */
+        line-height: 2;
     }
 
     .scroll-down-indicator {
         display: none;
     }
 
-    /* --- VIDEOS SECTION FIT (SYMMETRICAL) --- */
+    /* --- VIDEOS SECTION --- */
     #videos .container {
-        width: 90%;
+        width: 85%;
+        /* Makes the video players smaller */
         margin: 0 auto;
-        padding-left: 0;
-        padding-right: 0;
+        /* Keeps them perfectly centered */
+        padding: 0;
     }
 
     .video-grid {
@@ -1476,25 +1472,21 @@ html {
 
     .video-item iframe {
         width: 100%;
-        /* Let the video fill the container */
         height: auto;
         aspect-ratio: 16 / 9;
         border-radius: 8px;
         border: 1px solid #222;
         margin: 0 auto;
-        /* Center the video block */
     }
 
     .video-item h3 {
         text-align: center;
-        /* Center the title text */
         margin-top: 0.75rem;
         padding: 0 5%;
-        /* Add padding so long titles don't touch the edges */
         font-size: 0.9rem;
     }
 
-    /* --- MUSIC & CONTACT SECTIONS --- */
+    /* --- MUSIC SECTION --- */
     #music {
         min-height: 50vh;
         display: flex;
@@ -1514,33 +1506,42 @@ html {
         border-radius: 16px;
     }
 
+    /* --- CONTACT SECTION --- */
     #contact {
         justify-content: center;
     }
 
+    .contact-headline {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+        /* Makes headline larger */
+    }
+
     .contact-link {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
+        /* Makes link larger */
         white-space: nowrap;
     }
 
     .social-links {
-        margin-top: 2rem;
-        gap: 2rem;
+        margin-top: 2.5rem;
+        gap: 2.5rem;
     }
 
     .social-links a i {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     /* --- DOT NAVIGATION --- */
     .dot-nav {
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(5px);
+        background: transparent;
+        /* Removes the background overlay */
+        backdrop-filter: none;
         bottom: 0;
         right: 0;
         width: 100%;
         transform: none;
-        padding: 0.5rem 0;
+        padding: 1.5rem 0;
+        /* Increases padding for easier tapping */
         margin: 0;
         display: flex;
         justify-content: center;
