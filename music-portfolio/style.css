@@ -4,6 +4,18 @@
     --color-accent: #ff0033;
     --color-ui-grey: #a3a3a3;
     --font-main: 'Space Grotesk', sans-serif;
+
+    /* --- ADD THESE NEW VARIABLES --- */
+    --font-size-base: clamp(0.9rem, 0.8rem + 0.5vw, 1.1rem);
+    --font-size-lg: clamp(1rem, 0.9rem + 0.75vw, 1.5rem);
+    --font-size-h4: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
+    --font-size-logo: clamp(1.2rem, 1rem + 1vw, 1.5rem);
+    --space-section-py: clamp(3rem, 1rem + 8vw, 5rem);
+    /* Section top/bottom padding */
+    --space-section-px: clamp(1.5rem, 0.5rem + 4vw, 3rem);
+    /* Section left/right padding */
+    --space-header-py: clamp(1rem, 0.5rem + 2vw, 2rem);
+    /* Header top/bottom padding */
 }
 
 * {
@@ -52,7 +64,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 3rem;
+    padding: var(--space-header-py) var(--space-section-px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,7 +77,7 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: var(--font-size-logo);
     font-weight: 700;
     text-decoration: none;
     color: inherit;
@@ -193,7 +205,7 @@ body {
 section {
     width: 100%;
     min-height: 100vh;
-    padding: 5rem 3rem;
+    padding: var(--space-section-py) var(--space-section-px);
     position: relative;
     display: flex;
     border-bottom: 1px solid #222;
@@ -277,12 +289,12 @@ section {
 .grid-item h4 {
     color: var(--color-ui-grey);
     margin-bottom: 1.5rem;
-    font-size: 0.9rem;
+    font-size: var(--font-size-h4);
 }
 
 .grid-item ul {
     list-style: none;
-    font-size: 1.1rem;
+    font-size: var(--font-size-base);
     font-weight: 500;
     line-height: 1.8;
     text-align: left;
@@ -385,7 +397,7 @@ section {
 
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
 }
 
@@ -517,14 +529,14 @@ section {
 }
 
 .contact-headline {
-    font-size: clamp(4rem, 12vw, 10rem);
+    font-size: clamp(2.5rem, 12vw, 10rem);
     font-weight: 700;
     line-height: 1;
     text-align: center;
 }
 
 .contact-link {
-    font-size: 1.5rem;
+    font-size: var(--font-size-lg);
     margin-top: 2rem;
     text-transform: uppercase;
     text-decoration: none;
@@ -632,12 +644,6 @@ section {
 }
 
 @media (max-width: 768px) {
-    .main-header {
-        padding: 1rem 0.5rem;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
     .logo {
         font-size: 1.1rem;
     }
@@ -647,25 +653,12 @@ section {
         text-align: left;
     }
 
-    .hub-button {
-        width: 38px;
-        height: 38px;
-        margin: 0.5rem 0;
-    }
-
     .dot-nav {
         right: 6px;
     }
 
     .hero-content {
         bottom: 0.5rem;
-    }
-
-    .hero-grid {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0 0.5rem;
-        gap: 1.2rem;
     }
 
     .grid-item {
@@ -714,6 +707,41 @@ section {
 
     .preloader-content {
         gap: 0.5rem;
+    }
+
+    /* PASTE this new block inside @media (max-width: 768px) */
+    .main-header {
+        padding: 1rem 1.5rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-tagline {
+        display: none;
+    }
+
+    .hub-button {
+        width: 38px;
+        height: 38px;
+        margin: 0;
+        /* Remove vertical margin */
+    }
+
+    .hero-grid {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 0.5rem;
+        gap: 2rem;
+    }
+
+    .grid-item,
+    .grid-item:last-child,
+    .grid-item ul,
+    .grid-item:last-child ul {
+        text-align: center;
+        width: 100%;
     }
 }
 
@@ -1275,4 +1303,246 @@ html {
 .hero-content,
 .scroll-down-indicator {
     opacity: 0;
+}
+
+/* --- PASTE THIS ENTIRE BLOCK AT THE END OF THE FILE --- */
+
+/* --- Touch Interaction Polish --- */
+.social-links a:active {
+    transform: scale(1.15);
+    transition: transform 0.1s ease;
+}
+
+.dot-link:active {
+    transform: scale(1.8);
+    background-color: var(--color-light);
+}
+
+/* --- PASTE THIS ENTIRE BLOCK AT THE VERY END OF YOUR CSS FILE --- */
+
+@media (max-width: 480px) {
+
+    /* --- HERO SECTION FIX --- */
+    /* Prevents the overlapping text issue */
+    .hero-grid {
+        gap: 1.5rem;
+        /* Reduces space between "WHAT I DO" and "EXPERTISE" */
+    }
+
+    .grid-item ul {
+        line-height: 2.2;
+        /* Increases line height to stop text jumbling */
+        font-size: 0.85rem;
+        /* Makes font slightly smaller */
+    }
+
+    .grid-item h4 {
+        margin-bottom: 0.5rem;
+        /* Reduces space below the subtitle */
+    }
+
+    /* --- MUSIC SECTION FIX --- */
+    /* Makes album art larger and hides confusing text */
+    #music {
+        align-items: center;
+        /* Ensures vertical centering */
+    }
+
+    .catalogue-item {
+        width: 140px;
+        /* Increases the size of the album art */
+        height: 140px;
+        border-radius: 12px;
+    }
+
+    .catalogue-guidance {
+        display: none;
+        /* Hides the "Hover to pause" text on mobile */
+    }
+
+    /* --- VIDEOS SECTION FIX --- */
+    /* Prevents video titles from looking cramped */
+    .video-item h3 {
+        /* font-size: 0.9rem;
+        line-height: 1.4; */
+        margin-top: 0.75rem;
+    }
+
+    /* --- CONTACT SECTION FIX --- */
+    /* Stops the "GET IN TOUCH" link from wrapping */
+    .contact-link {
+        white-space: nowrap;
+        /* The key fix: prevents the text from breaking into a new line */
+        font-size: 1.1rem;
+        /* Ensures the font is small enough */
+    }
+
+}
+
+/* ==========================================================================
+   PERFECTED MOBILE STYLES (For screens 600px and smaller)
+   ========================================================================== */
+
+@media (max-width: 600px) {
+
+    /* --- GLOBAL & HEADER --- */
+    body {
+        cursor: auto;
+    }
+
+    .main-header {
+        padding: 0.75rem 1rem;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .logo {
+        flex-basis: auto;
+        margin-right: 1rem;
+    }
+
+    .hub-button {
+        flex-shrink: 0;
+    }
+
+    section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* --- HERO SECTION AESTHETICS (NEW) --- */
+    #hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* This is the key change for vertical alignment */
+        text-align: center;
+        min-height: 90vh;
+    }
+
+    .hero-content {
+        position: static;
+        padding: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3.5rem;
+        /* Creates a clean separation between the two lists */
+    }
+
+    .hero-bg-image img {
+        height: 75%;
+        opacity: 0.3;
+        /* Darkens the image for better text contrast */
+    }
+
+    .grid-item h4 {
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-ui-grey);
+        margin-bottom: 1rem;
+    }
+
+    .grid-item ul {
+        padding-left: 0;
+    }
+
+    .grid-item ul li {
+        font-size: 1.1rem;
+        /* Makes your key skills more impactful */
+        font-weight: 500;
+        line-height: 2.2;
+        /* Prevents text overlap */
+    }
+
+    .scroll-down-indicator {
+        display: none;
+    }
+
+    /* --- VIDEOS SECTION FIT (SYMMETRICAL) --- */
+    #videos .container {
+        width: 90%;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .video-item iframe {
+        width: 100%;
+        /* Let the video fill the container */
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        border: 1px solid #222;
+        margin: 0 auto;
+        /* Center the video block */
+    }
+
+    .video-item h3 {
+        text-align: center;
+        /* Center the title text */
+        margin-top: 0.75rem;
+        padding: 0 5%;
+        /* Add padding so long titles don't touch the edges */
+        font-size: 0.9rem;
+    }
+
+    /* --- MUSIC & CONTACT SECTIONS --- */
+    #music {
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .catalogue-wrapper {
+        padding: 0;
+        gap: 1rem;
+    }
+
+    .catalogue-item {
+        width: 65vw;
+        height: 65vw;
+        max-width: 280px;
+        max-height: 280px;
+        border-radius: 16px;
+    }
+
+    #contact {
+        justify-content: center;
+    }
+
+    .contact-link {
+        font-size: 1.4rem;
+        white-space: nowrap;
+    }
+
+    .social-links {
+        margin-top: 2rem;
+        gap: 2rem;
+    }
+
+    .social-links a i {
+        font-size: 1.4rem;
+    }
+
+    /* --- DOT NAVIGATION --- */
+    .dot-nav {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        transform: none;
+        padding: 0.5rem 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
 }
