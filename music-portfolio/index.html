@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUβER βΔSSI - The Sonic Interface</title>
-    
+    <title>KUβER βΔSSI | Guitarist & Producer</title>
+    <link rel="icon" type="image/png" href="/dev-portfolio/images/favicon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
+
 <body>
     <div class="cursor"></div>
     <canvas id="glitch-grid-canvas"></canvas>
+
+    <div class="preloader">
+        <div class="preloader-gate-top"></div>
+        <div class="preloader-gate-bottom"></div>
+        <div class="preloader-doodles">
+            <span class="doodle">&#119070;</span>
+            <span class="doodle">&#9835;</span>
+            <span class="doodle">&#119071;</span>
+            <span class="doodle">&#119082;</span>
+            <span class="doodle">&#9833;</span>
+            <span class="doodle">&#119073;</span>
+            <span class="doodle">&#119074;</span>
+            <span class="doodle">&#119075;</span>
+            <span class="doodle">&#119076;</span>
+            <span class="doodle">&#119077;</span>
+            <span class="doodle">&#119078;</span>
+            <span class="doodle">&#119079;</span>
+        </div>
+        <div class="preloader-content">
+            <div class="preloader-counter">0%</div>
+            <div class="preloader-logo">KUβER βΔSSI*</div>
+        </div>
+        <div class="preloader-gate-top"></div>
+        <div class="preloader-gate-bottom"></div>
+    </div>
 
     <header class="main-header">
         <a href="#hero" class="logo magnetic">KUβER βΔSSI*</a>
@@ -22,7 +50,7 @@
             <i class="fas fa-th"></i>
         </a>
         <div class="header-tagline">
-            <span>PROGRESS ISN'T A GOAL,</span>
+            <span>PROGRESS ISN'T A GOAL,</span><br>
             <span>IT'S A RHYTHM.</span>
         </div>
     </header>
@@ -38,34 +66,53 @@
 
     <main id="main-container">
         <section id="hero" data-section-theme="dark">
-            <div class="hero-bg-image"><img src="/music-portfolio/assets/images/stealthy-kb.png" alt="Kuber Bassi"></div>
+            <div class="hero-bg-image"><img src="/music-portfolio/assets/images/stealthy-kb.png" alt="Kuber Bassi">
+            </div>
             <div class="hero-bg-text">SOUND</div>
             <div class="hero-content">
                 <div class="hero-grid">
                     <div class="grid-item">
                         <h4>WHAT I DO</h4>
-                        <ul><li>GUITARIST</li><li>MUSIC PRODUCER</li><li>SOUND DESIGNER</li><li>CREATIVE TECHNOLOGIST</li></ul>
+                        <ul>
+                            <li>GUITARIST</li>
+                            <li>MUSIC PRODUCER</li>
+                            <li>SOUND DESIGNER</li>
+                            <li>CREATIVE TECHNOLOGIST</li>
+                        </ul>
                     </div>
                     <div class="grid-item">
                         <h4>EXPERTISE</h4>
-                        <ul><li>TONE CRAFTING</li><li>FULL PRODUCTION</li><li>MIXING & MASTERING</li><li>SOUNDTRACKS</li></ul>
+                        <ul>
+                            <li>TONE CRAFTING</li>
+                            <li>FULL PRODUCTION</li>
+                            <li>MIXING & MASTERING</li>
+                            <li>SOUNDTRACKS</li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="scroll-down-indicator"></div>
         </section>
-        
+
         <section id="videos" data-section-theme="light">
             <div class="container">
                 <h2 class="section-title">Videos</h2>
                 <div class="video-grid">
                     <div class="video-item">
-                        <iframe loading="lazy" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <h3>Video Title One</h3>
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/d6Rp85z5kAQ?si=v74aBnSmACncGJMK"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h3>Rock Band | Farewell 2024 | New Era Public School</h3>
                     </div>
                     <div class="video-item">
-                        <iframe loading="lazy" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <h3>Video Title Two</h3>
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/FY2LIQZ69O8?si=_rhhnZvjjLg4otNz"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h3>Chhaap Tilak | Dillagi | Amity International School | Band Cover</h3>
                     </div>
                 </div>
             </div>
@@ -74,7 +121,7 @@
         <section id="music" data-section-theme="dark">
             <div id="music-catalogue">
                 <div class="catalogue-wrapper">
-                    </div>
+                </div>
             </div>
         </section>
 
@@ -85,17 +132,20 @@
             </div>
             <div class="contact-bottom">
                 <div class="social-links">
-                    <a href="#" class="magnetic"><i class="fab fa-spotify"></i></a>
-                    <a href="#" class="magnetic"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="magnetic"><i class="fab fa-instagram"></i></a>
+                    <a href="https://open.spotify.com/artist/1hVnV9LmM1EJpA8Gj0iT0H?si=-Hsru793SGSIPv6n41BTug"
+                        class="magnetic"><i class="fab fa-spotify"></i></a>
+                    <a href="https://www.youtube.com/@KuberB" class="magnetic"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/kuberbassi.music" class="magnetic"><i
+                            class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </section>
     </main>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -10,6 +10,96 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- GSAP & ANIMATIONS ---
     gsap.registerPlugin(ScrollTrigger);
 
+    // --- NEW: "ONEPLUS-STYLE" PRELOADER ANIMATION ---
+    function initPreloader() {
+        const counterElement = document.querySelector(".preloader-counter");
+        const preloaderLogo = document.querySelector(".preloader-logo");
+        const tl = gsap.timeline();
+
+        tl.delay(0.5);
+
+        // Animate the counter from 0 to 100
+        let counter = { value: 0 };
+        tl.to(counter, {
+            value: 100,
+            duration: 2.5,
+            ease: "power2.out",
+            onUpdate: () => {
+                counterElement.textContent = `${Math.round(counter.value)}%`;
+            }
+        });
+
+        // Fade out counter and fade in logo
+        tl.to(counterElement, { opacity: 0, duration: 0.3 }, "-=0.3");
+        tl.to(preloaderLogo, { opacity: 1, duration: 1 }, "-=0.3");
+
+        // Hold the logo for a moment
+        tl.to(preloaderLogo, { duration: 0.8 });
+
+        // Fade out logo
+        tl.to(preloaderLogo, { opacity: 0, duration: 0.5 });
+
+        // --- SMOOTH SHUTTER ANIMATION ---
+        tl.to(".preloader-gate-top", {
+            yPercent: -100,
+            ease: "power4.inOut",
+            duration: 1.1
+        }, "-=0.3");
+        tl.to(".preloader-gate-bottom", {
+            yPercent: 100,
+            ease: "power4.inOut",
+            duration: 1.1
+        }, "<");
+        tl.to(".preloader-doodles", {
+            opacity: 0,
+            duration: 0.7,
+            ease: "power1.inOut"
+        }, "<");
+
+        // Ensure scroll is at top before showing content
+        tl.add(() => {
+            window.scrollTo({ top: 0, behavior: 'auto' });
+        }, "<");
+
+        // Animate main content into view with depth
+        tl.fromTo("main", {
+            scale: 0.96,
+            opacity: 0,
+            filter: "blur(16px)"
+        }, {
+            scale: 1,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 1.1,
+            ease: "power4.out"
+        }, "-=0.7");
+
+        tl.fromTo(".main-header, .dot-nav", {
+            y: -20,
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+        }, "-=0.9");
+
+        tl.fromTo(".hero-content, .scroll-down-indicator", {
+            y: 20,
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+        }, "<");
+
+        // Remove the preloader from the DOM after animation
+        tl.to(".preloader", { display: 'none' });
+    }
+
+    initPreloader();
+
     // --- Glitch Grid Canvas Background ---
     const canvas = document.getElementById('glitch-grid-canvas');
     if (canvas) {
@@ -63,38 +153,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- OnePlus Glitch Effect ---
+    // --- OnePlus Glitch Effect (FIXED) ---
     function applyGlitchRed() {
-        document.querySelectorAll('h1, h2, h3, h4, p, li, a, span').forEach(element => {
-            if (element.classList.contains('glitch-processed') || element.closest('.dot-nav')) return;
-            const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3 && node.textContent.trim().length > 0);
-            textNodes.forEach(node => {
-                const text = node.textContent;
-                const newHTML = text.split('').map(char => (Math.random() < 0.012) ? `<span class="glitch-red">${char}</span>` : char).join('');
-                const newNode = document.createElement('span');
-                newNode.innerHTML = newHTML;
-                node.parentNode.replaceChild(newNode, node);
-                element.classList.add('glitch-processed');
-            });
+        document.querySelectorAll(
+            '.logo, .header-tagline, main h1, main h2, main h3, main h4, main p, main li, main a:not(.hub-button):not(.hub-button *), main span'
+        ).forEach(element => {
+            if (element.classList.contains('glitch-processed')) return;
+            const text = element.textContent;
+            if (!text) return;
+            let glitched = '';
+            for (let i = 0; i < text.length; i++) {
+                if (Math.random() < 0.03 && text[i] !== ' ') {
+                    glitched += `<span style="color:var(--color-accent);transition:color 0.3s;">${text[i]}</span>`;
+                } else {
+                    glitched += text[i];
+                }
+            }
+            element.innerHTML = glitched;
+            element.classList.add('glitch-processed');
         });
     }
-    setTimeout(applyGlitchRed, 1000);
+    // Run glitch effect every 2.2s for a subtle, seamless feel
+    setInterval(() => {
+        document.querySelectorAll('.glitch-processed').forEach(el => el.classList.remove('glitch-processed'));
+        applyGlitchRed();
+    }, 2200);
 
     // --- Precise Header Inversion ---
     const header = document.querySelector('.main-header');
-    if(header) {
-        ScrollTrigger.create({
-            onUpdate: () => {
-                const pointElement = document.elementFromPoint(window.innerWidth / 2, header.offsetHeight / 2);
-                const section = pointElement ? pointElement.closest('section') : null;
-                if (section && section.dataset.sectionTheme === 'light') {
-                    header.classList.add('header-inverted');
-                } else {
-                    header.classList.remove('header-inverted');
-                }
-            }
-        });
-    }
+    gsap.utils.toArray('section').forEach(section => {
+        const theme = section.getAttribute('data-section-theme');
+        if (theme === 'light') {
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top 10%',
+                end: 'bottom 10%',
+                onEnter: () => header.classList.add('header-inverted'),
+                onLeaveBack: () => header.classList.remove('header-inverted'),
+                onLeave: () => header.classList.remove('header-inverted'),
+                onEnterBack: () => header.classList.add('header-inverted'),
+            });
+        }
+    });
 
     // --- Dot Nav Active State ---
     gsap.utils.toArray('section').forEach(section => {
@@ -122,22 +222,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('Network response was not ok');
             const songs = await response.json();
 
-            // 1. Populate the catalogue
-            catalogueWrapper.innerHTML = ''; // Clear any existing content
+            catalogueWrapper.innerHTML = '';
             songs.forEach(song => {
                 const item = document.createElement('a');
                 item.className = 'catalogue-item';
-                item.href = song.streamUrl || '#'; // Assuming streamUrl might exist in JSON
+                item.href = song.streamUrl || '#';
                 item.target = '_blank';
                 item.innerHTML = `<img src="${song.coverArtUrl}" alt="${song.title}">`;
                 catalogueWrapper.appendChild(item);
             });
 
+            // Clone items for infinite loop
             const items = gsap.utils.toArray('.catalogue-item');
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.classList.add('clone');
+                catalogueWrapper.appendChild(clone);
+            });
+
             let velocity = 0;
             let maxVelocity = 30;
             let isHoveringItem = false;
-            
+            let idleVelocity = 0.5; // Slow idle scroll
+            let wrapperWidth = catalogueWrapper.scrollWidth / 2; // Only original items
+
             musicCatalogue.addEventListener('mousemove', e => {
                 if (isHoveringItem) return;
                 const rect = musicCatalogue.getBoundingClientRect();
@@ -145,53 +253,117 @@ document.addEventListener('DOMContentLoaded', () => {
                 const normalizedX = (mouseX / rect.width) * 2 - 1;
                 velocity = normalizedX * maxVelocity;
             });
-            
+
             musicCatalogue.addEventListener('mouseleave', () => { velocity = 0; });
 
             items.forEach(item => {
                 item.addEventListener('mouseenter', () => {
                     isHoveringItem = true; velocity = 0;
-                    gsap.to(item, { scale: 1.1, ease: 'power2.out', duration: 0.4, overwrite: true });
+                    gsap.to(item, { scale: 1.1, ease: 'power2.out', duration: 0.4 });
                     items.forEach(otherItem => {
                         if (otherItem !== item) {
-                            gsap.to(otherItem, { scale: 0.9, opacity: 0.5, ease: 'power2.out', duration: 0.4, overwrite: true });
+                            gsap.to(otherItem, { scale: 0.9, opacity: 0.5, ease: 'power2.out', duration: 0.4 });
                         }
                     });
                 });
                 item.addEventListener('mouseleave', () => {
                     isHoveringItem = false;
-                    gsap.to(items, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.4, overwrite: true });
+                    gsap.to(items, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.4 });
                 });
             });
 
+            let x = 0;
             gsap.ticker.add(() => {
                 if (!isHoveringItem) {
-                    let currentX = gsap.getProperty(catalogueWrapper, "x");
-                    let newX = currentX - velocity;
-
-                    const wrapperWidth = catalogueWrapper.offsetWidth;
-                    const containerWidth = musicCatalogue.offsetWidth;
-                    
-                    // Calculate total width of items + gaps
-                    const totalItemsWidth = items.reduce((sum, item) => sum + item.offsetWidth, 0);
-                    const totalGapWidth = (items.length - 1) * 40; // 40px is gap
-                    const effectiveWrapperWidth = totalItemsWidth + totalGapWidth;
-
-                    const maxScroll = (containerWidth - effectiveWrapperWidth) / 2; // Center initially
-                    const minScroll = (containerWidth - effectiveWrapperWidth) / 2 - (effectiveWrapperWidth - containerWidth);
-                    
-                    // Adjusted boundary logic
-                    if (newX > maxScroll) newX = maxScroll;
-                    if (newX < minScroll) newX = minScroll;
-                    
-                    gsap.set(catalogueWrapper, { x: newX });
+                    x -= velocity || idleVelocity;
+                    // Infinite loop logic
+                    if (x < -wrapperWidth) x += wrapperWidth;
+                    if (x > 0) x -= wrapperWidth;
+                    gsap.set(catalogueWrapper, { x });
                 }
             });
 
+            // --- Guidance Graphics ---
+            if (!document.querySelector('.catalogue-guidance')) {
+                const guidance = document.createElement('div');
+                guidance.className = 'catalogue-guidance';
+                guidance.innerHTML = `
+                    <div class="arrow-left"></div>
+                    <span class="guidance-text">Hover over an artwork to pause & explore</span>
+                    <div class="arrow-right"></div>
+                `;
+                musicCatalogue.appendChild(guidance);
+            }
         } catch (error) {
             console.error("Could not load or initialize the music catalogue:", error);
         }
     }
     
     initSpeedSlideCatalogue();
+});
+
+// --- Animated Intro Loader ---
+window.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('intro-loader');
+    if (loader) {
+        setTimeout(() => {
+            gsap.to(loader, {
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.inOut",
+                onComplete: () => loader.classList.add('hide')
+            });
+        }, 2400); // Loader stays for 2.4s, then fades out
+    }
+});
+
+function fillPreloaderDoodles() {
+    const doodleContainer = document.querySelector('.preloader-doodles');
+    if (!doodleContainer) return;
+    doodleContainer.innerHTML = '';
+    const doodleChars = ['&#119070;', '&#9835;', '&#119071;', '&#119082;', '&#9833;', '&#119073;', '&#119074;', '&#119075;', '&#119076;', '&#119077;', '&#119078;', '&#119079;'];
+    const count = 60; // Number of doodles for texture
+    for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.innerHTML = doodleChars[Math.floor(Math.random() * doodleChars.length)];
+        span.style.left = `${Math.random() * 98}%`;
+        span.style.top = `${Math.random() * 98}%`;
+        span.style.fontSize = `${0.9 + Math.random() * 0.8}rem`;
+        span.style.opacity = `${0.12 + Math.random() * 0.18}`;
+        doodleContainer.appendChild(span);
+    }
+}
+fillPreloaderDoodles();
+
+function oneplusLogoEffect() {
+    const logo = document.querySelector('.preloader-logo');
+    if (!logo) return;
+    const text = "KUβER βΔSSI*";
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] !== ' ' && Math.random() < 0.13) {
+            result += `<span style="color:var(--color-accent);">${text[i]}</span>`;
+        } else {
+            result += text[i];
+        }
+    }
+    logo.innerHTML = result;
+}
+oneplusLogoEffect();
+
+// --- Smooth Scroll for Dot Navigation ---
+document.querySelectorAll('.dot-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+            e.preventDefault();
+            const lenis = window.lenis || null;
+            if (lenis) {
+                lenis.scrollTo(targetSection, { duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 3) });
+            } else {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
 });
