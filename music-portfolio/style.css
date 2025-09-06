@@ -578,7 +578,9 @@ section {
     bottom: 3rem;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .social-links {
@@ -598,6 +600,12 @@ section {
 .social-links a:active {
     transform: scale(1.15);
     transition: transform 0.1s ease;
+}
+
+.copyright-text {
+    font-size: 0.8rem;
+    color: var(--color-ui-grey);
+    opacity: 0.8;
 }
 
 /* ==========================================================================
@@ -624,8 +632,10 @@ section {
 /* --- Specific Tablet Styles (up to 1024px) --- */
 @media (min-width: 601px) and (max-width: 1024px) {
     #music {
-        min-height: 60vh; /* Reduces the section height to 60% of the screen height */
+        min-height: 60vh;
+        /* Reduces the section height to 60% of the screen height */
     }
+
     .catalogue-item {
         width: 220px;
         height: 220px;
@@ -791,7 +801,8 @@ section {
 
     .contact-bottom {
         position: static;
-        margin-top: 2rem;
+        margin-top: 3rem;
+        gap: 2rem;
     }
 
     .contact-headline {
