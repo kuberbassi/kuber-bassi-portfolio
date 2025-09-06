@@ -310,24 +310,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const disableHeavyAnimations = window.matchMedia("(max-width: 1024px)").matches || !window.matchMedia("(pointer: fine)").matches;
+            // A more reliable check for touch vs. mouse-based devices
+            const isTouchDevice = !window.matchMedia("(pointer: fine)").matches;
 
-            if (!disableHeavyAnimations) {
-                setupDevBackground();
-                setupArtistBackground();
-            } else {
-                // Add a simple static fallback for mobile/tablet
-                const devBg = document.getElementById('dev-background');
-                if (devBg) devBg.style.background = 'radial-gradient(circle at center, rgba(59, 130, 246, 0.05), transparent 60%)';
-            }
+            // Always run the setup functions
+            setupDevBackground(isTouchDevice);
+            setupArtistBackground();
             setupPageTransition();
 
-            function setupDevBackground() {
+            /**
+             * Sets up the background for the Developer panel.
+             * @param {boolean} isTouch - True if the device is touch-based.
+             */
+            function setupDevBackground(isTouch) {
                 const container = document.getElementById('dev-background');
                 if (!container) return;
+
+                // Use a dynamic way to get dimensions to account for responsive layout changes
                 const panelRect = container.getBoundingClientRect();
                 const gridSize = 40;
 
+                // Create grid lines dynamically
                 for (let i = 0; i <= panelRect.width / gridSize; i++) {
                     const line = document.createElement('div');
                     line.classList.add('dev-grid-line', 'vertical');
@@ -341,32 +344,55 @@
                     container.appendChild(line);
                 }
 
-                let mouseX = -999, mouseY = -999;
-                container.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX - panelRect.left;
-                    mouseY = e.clientY - panelRect.top;
-                });
-                container.addEventListener('mouseleave', () => {
-                    mouseX = -999; mouseY = -999;
-                });
+                if (isTouch) {
+                    // --- AUTOMATIC ANIMATION FOR TOUCH DEVICES ---
+                    const vLines = document.querySelectorAll('.dev-grid-line.vertical');
+                    const hLines = document.querySelectorAll('.dev-grid-line.horizontal');
 
-                function updateDevGrid() {
-                    document.querySelectorAll('.dev-grid-line').forEach(line => {
-                        const linePos = line.classList.contains('vertical') ? parseFloat(line.style.getPropertyValue('--left')) : parseFloat(line.style.getPropertyValue('--top'));
-                        const dist = line.classList.contains('vertical') ? Math.abs(mouseX - linePos) : Math.abs(mouseY - linePos);
+                    const tl = gsap.timeline({ repeat: -1, yoyo: true, defaults: { ease: 'sine.inOut' } });
 
-                        let intensity = 0;
-                        if (dist < 100) {
-                            intensity = (100 - dist) / 100;
-                        }
-                        gsap.to(line, {
-                            backgroundColor: `rgba(59, 130, 246, ${0.1 + intensity * 0.4})`,
-                            duration: 0.5
-                        });
+                    tl.to(vLines, {
+                        backgroundColor: 'rgba(59, 130, 246, 0.4)',
+                        duration: 2,
+                        stagger: { amount: 2.5, from: 'random' }
+                    }).to(hLines, {
+                        backgroundColor: 'rgba(59, 130, 246, 0.3)',
+                        duration: 2,
+                        stagger: { amount: 2.5, from: 'center' }
+                    }, "-=2");
+
+                } else {
+                    // --- MOUSE-INTERACTIVE ANIMATION FOR DESKTOP ---
+                    let mouseX = -999, mouseY = -999;
+                    container.addEventListener('mousemove', (e) => {
+                        const rect = container.getBoundingClientRect(); // Recalculate on move for accuracy
+                        mouseX = e.clientX - rect.left;
+                        mouseY = e.clientY - rect.top;
                     });
-                    requestAnimationFrame(updateDevGrid);
+                    container.addEventListener('mouseleave', () => {
+                        mouseX = -999; mouseY = -999;
+                    });
+
+                    function updateDevGrid() {
+                        document.querySelectorAll('.dev-grid-line').forEach(line => {
+                            const linePos = line.classList.contains('vertical') ? parseFloat(line.style.getPropertyValue('--left')) : parseFloat(line.style.getPropertyValue('--top'));
+                            const dist = line.classList.contains('vertical') ? Math.abs(mouseX - linePos) : Math.abs(mouseY - linePos);
+
+                            let intensity = 0;
+                            const radius = 120; // Increased radius for a softer feel
+                            if (dist < radius) {
+                                intensity = (radius - dist) / radius;
+                            }
+                            gsap.to(line, {
+                                backgroundColor: `rgba(59, 130, 246, ${0.1 + intensity * 0.4})`,
+                                duration: 0.5,
+                                ease: 'power1.out'
+                            });
+                        });
+                        requestAnimationFrame(updateDevGrid);
+                    }
+                    updateDevGrid();
                 }
-                updateDevGrid();
             }
 
             function setupArtistBackground() {
@@ -444,7 +470,8 @@
                                 stagger: 0.02
                             }, 0);
 
-                        if (clickedPanel.classList.contains('dev-panel') && !disableHeavyAnimations) {
+                        // Use the same isTouchDevice check here to avoid running animations that were never created
+                        if (clickedPanel.classList.contains('dev-panel')) {
                             tl.to('.dev-grid-line', {
                                 scale: 0,
                                 opacity: 0,
@@ -452,7 +479,7 @@
                                 ease: 'expo.out',
                                 stagger: { amount: 0.5, from: 'center' }
                             }, 0.2);
-                        } else if (clickedPanel.classList.contains('artist-panel') && !disableHeavyAnimations) {
+                        } else if (clickedPanel.classList.contains('artist-panel')) {
                             tl.to('.glowing-orb', {
                                 scale: 0,
                                 opacity: 0,
