@@ -156,9 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- OnePlus Glitch Effect (FIXED) ---
     function applyGlitchRed() {
         document.querySelectorAll(
-            '.logo, .header-tagline, main h1, main h2, main h3, main h4, main p, main li, main a:not(.hub-button):not(.hub-button *), main span'
+            '.logo, .header-tagline span, main h1, main h2, main h3, main h4, main p, main li, main a:not(.hub-button):not(.hub-button *), main span'
         ).forEach(element => {
-            if (element.closest('.video-item')) return; // ADD THIS LINE
+            if (element.closest('.video-item')) return;
             if (element.classList.contains('glitch-processed')) return;
             const text = element.textContent;
             if (!text) return;
