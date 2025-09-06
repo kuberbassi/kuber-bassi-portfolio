@@ -215,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicCatalogue = document.getElementById('music-catalogue');
     const catalogueWrapper = document.querySelector('.catalogue-wrapper');
 
+    // Replace your old initSpeedSlideCatalogue function with this new one
+
     async function initSpeedSlideCatalogue() {
         if (!musicCatalogue || !catalogueWrapper) return;
 
@@ -237,94 +239,102 @@ document.addEventListener('DOMContentLoaded', () => {
             const items = gsap.utils.toArray('.catalogue-item');
             items.forEach(item => {
                 const clone = item.cloneNode(true);
-                clone.classList.add('clone');
                 catalogueWrapper.appendChild(clone);
             });
 
-            let velocity = 0;
-            let maxVelocity = 30;
-            let isHoveringItem = false;
-            let idleVelocity = 0.5; // Slow idle scroll
-            let wrapperWidth = catalogueWrapper.scrollWidth / 2; // Only original items
+            // --- SCROLL LOGIC ---
+            let x = 0;
+            const wrapperWidth = catalogueWrapper.scrollWidth / 2;
+            const allCatalogueItems = gsap.utils.toArray('.catalogue-item');
 
+            // Desktop mouse variables
+            let mouseVelocity = 0;
+            let isHoveringItem = false;
+            const idleVelocity = 0.5;
+
+            // Mobile/Tablet touch variables
+            let isDragging = false;
+            let startX = 0;
+            let startScrollX = 0;
+            let dragVelocity = 0;
+            let lastX = 0;
+
+            // Desktop mouse listeners
             musicCatalogue.addEventListener('mousemove', e => {
-                if (isHoveringItem) return;
+                if (isDragging) return; // Don't run if user is dragging
                 const rect = musicCatalogue.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
                 const normalizedX = (mouseX / rect.width) * 2 - 1;
-                velocity = normalizedX * maxVelocity;
+                mouseVelocity = normalizedX * 30; // 30 is max velocity
+            });
+            musicCatalogue.addEventListener('mouseleave', () => {
+                mouseVelocity = 0;
             });
 
-            musicCatalogue.addEventListener('mouseleave', () => { velocity = 0; });
+            // Mobile/Tablet touch listeners
+            musicCatalogue.addEventListener('touchstart', e => {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                startScrollX = x;
+                mouseVelocity = 0;
+                dragVelocity = 0;
+                lastX = startX;
+                catalogueWrapper.style.willChange = 'transform';
+            }, { passive: true });
 
-            // PASTE THIS NEW BLOCK IN ITS PLACE
+            musicCatalogue.addEventListener('touchmove', e => {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const deltaX = currentX - startX;
+                x = startScrollX + deltaX;
+                dragVelocity = currentX - lastX;
+                lastX = currentX;
+                gsap.set(catalogueWrapper, { x }); // Update position during drag
+            }, { passive: true });
 
-            // First, get ALL catalogue items (originals + clones)
-            const allCatalogueItems = gsap.utils.toArray('.catalogue-item');
+            musicCatalogue.addEventListener('touchend', () => {
+                isDragging = false;
+                catalogueWrapper.style.willChange = 'auto';
+            });
 
-            // Now, apply the event listeners to every single item
+            // Hover listeners for all items
             allCatalogueItems.forEach(item => {
                 item.addEventListener('mouseenter', () => {
+                    if (isDragging) return;
                     isHoveringItem = true;
-                    velocity = 0; // Stop the scroll
-
-                    // Animate the item being hovered
-                    gsap.to(item, {
-                        scale: 1.12,
-                        boxShadow: "0 16px 48px 0 rgba(255,0,51,0.18)",
-                        filter: "brightness(1.08) saturate(1.1)",
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-
-                    // Animate all OTHER items
-                    allCatalogueItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            gsap.to(otherItem, {
-                                scale: 0.9,
-                                opacity: 0.5,
-                                duration: 0.4,
-                                ease: 'power2.out'
-                            });
-                        }
-                    });
+                    mouseVelocity = 0;
+                    gsap.to(item, { scale: 1.12, boxShadow: "0 16px 48px 0 rgba(255,0,51,0.18)", filter: "brightness(1.08) saturate(1.1)", duration: 0.4, ease: "power2.out" });
+                    allCatalogueItems.forEach(otherItem => { if (otherItem !== item) gsap.to(otherItem, { scale: 0.9, opacity: 0.5, duration: 0.4, ease: 'power2.out' }); });
                 });
-
                 item.addEventListener('mouseleave', () => {
                     isHoveringItem = false;
-
-                    // Reset ALL items to their original state
-                    gsap.to(allCatalogueItems, {
-                        scale: 1,
-                        opacity: 1,
-                        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)", // Reset to original shadow
-                        filter: "brightness(1) saturate(1)", // Reset filter
-                        duration: 0.4,
-                        ease: 'power2.out'
-                    });
+                    gsap.to(allCatalogueItems, { scale: 1, opacity: 1, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)", filter: "brightness(1) saturate(1)", duration: 0.4, ease: 'power2.out' });
                 });
             });
 
-            let x = 0;
+            // Main animation ticker
             gsap.ticker.add(() => {
-                if (!isHoveringItem) {
-                    x -= velocity || idleVelocity;
-                    // Infinite loop logic
-                    if (x < -wrapperWidth) x += wrapperWidth;
-                    if (x > 0) x -= wrapperWidth;
-                    gsap.set(catalogueWrapper, { x });
+                if (!isHoveringItem && !isDragging) {
+                    if (Math.abs(dragVelocity) > 0.1) {
+                        // Apply momentum from drag
+                        x += dragVelocity;
+                        dragVelocity *= 0.92; // Friction
+                    } else {
+                        // Apply mouse or idle velocity
+                        x -= mouseVelocity || idleVelocity;
+                    }
                 }
+                // Infinite loop logic
+                if (x < -wrapperWidth) x += wrapperWidth;
+                if (x > 0) x -= wrapperWidth;
+                gsap.set(catalogueWrapper, { x });
             });
 
             // --- Guidance Graphics ---
             if (!document.querySelector('.catalogue-guidance')) {
                 const guidance = document.createElement('div');
                 guidance.className = 'catalogue-guidance';
-                guidance.innerHTML = `
-                    <div class="arrow-left"></div>
-                    <span class="guidance-text">Hover over an artwork to pause & explore</span>
-                    <div class="arrow-right"></div>
-                `;
+                guidance.innerHTML = `<div class="arrow-left"></div><span class="guidance-text">Hover or drag to explore</span><div class="arrow-right"></div>`;
                 musicCatalogue.appendChild(guidance);
             }
         } catch (error) {

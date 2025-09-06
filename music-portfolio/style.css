@@ -619,6 +619,19 @@ section {
     }
 }
 
+/* Add this new block to your style.css file */
+
+/* --- Specific Tablet Styles (up to 1024px) --- */
+@media (min-width: 601px) and (max-width: 1024px) {
+    #music {
+        min-height: 60vh; /* Reduces the section height to 60% of the screen height */
+    }
+    .catalogue-item {
+        width: 220px;
+        height: 220px;
+    }
+}
+
 /* --- Tablets (up to 768px) --- */
 @media (max-width: 768px) {
     .main-header {
@@ -648,11 +661,6 @@ section {
     .grid-item ul,
     .grid-item:last-child ul {
         text-align: center;
-    }
-
-    .catalogue-item {
-        width: 120px;
-        height: 120px;
     }
 }
 
