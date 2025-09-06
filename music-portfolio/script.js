@@ -256,19 +256,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
             musicCatalogue.addEventListener('mouseleave', () => { velocity = 0; });
 
-            items.forEach(item => {
+            // PASTE THIS NEW BLOCK IN ITS PLACE
+
+            // First, get ALL catalogue items (originals + clones)
+            const allCatalogueItems = gsap.utils.toArray('.catalogue-item');
+
+            // Now, apply the event listeners to every single item
+            allCatalogueItems.forEach(item => {
                 item.addEventListener('mouseenter', () => {
-                    isHoveringItem = true; velocity = 0;
-                    gsap.to(item, { scale: 1.1, ease: 'power2.out', duration: 0.4 });
-                    items.forEach(otherItem => {
+                    isHoveringItem = true;
+                    velocity = 0; // Stop the scroll
+
+                    // Animate the item being hovered
+                    gsap.to(item, {
+                        scale: 1.12,
+                        boxShadow: "0 16px 48px 0 rgba(255,0,51,0.18)",
+                        filter: "brightness(1.08) saturate(1.1)",
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+
+                    // Animate all OTHER items
+                    allCatalogueItems.forEach(otherItem => {
                         if (otherItem !== item) {
-                            gsap.to(otherItem, { scale: 0.9, opacity: 0.5, ease: 'power2.out', duration: 0.4 });
+                            gsap.to(otherItem, {
+                                scale: 0.9,
+                                opacity: 0.5,
+                                duration: 0.4,
+                                ease: 'power2.out'
+                            });
                         }
                     });
                 });
+
                 item.addEventListener('mouseleave', () => {
                     isHoveringItem = false;
-                    gsap.to(items, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.4 });
+
+                    // Reset ALL items to their original state
+                    gsap.to(allCatalogueItems, {
+                        scale: 1,
+                        opacity: 1,
+                        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)", // Reset to original shadow
+                        filter: "brightness(1) saturate(1)", // Reset filter
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
                 });
             });
 
@@ -298,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Could not load or initialize the music catalogue:", error);
         }
     }
-    
+
     initSpeedSlideCatalogue();
 });
 
@@ -353,7 +385,7 @@ oneplusLogoEffect();
 
 // --- Smooth Scroll for Dot Navigation ---
 document.querySelectorAll('.dot-link').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
         const targetSection = document.querySelector(targetId);
         if (targetSection) {
