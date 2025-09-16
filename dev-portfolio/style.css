@@ -1000,198 +1000,23 @@ header.main-header.header-is-inverted .nav-cta-button:hover {
     border-width: 0 2px 2px 0;
 }
 
-
-/* --- RESPONSIVE ADJUSTMENTS --- */
-@media (max-width: 900px) {
-    .main-nav {
-        display: none;
-    }
-
-    .mobile-nav-toggle {
-        display: block;
-        position: relative;
-        z-index: 1000;
-        width: 30px;
-        height: 22px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-    }
-
-    .mobile-nav-toggle span {
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-text-dark);
-        position: absolute;
-        left: 0;
-        transition: transform 0.3s ease, top 0.3s ease;
-    }
-
-    .main-header.header-is-inverted .mobile-nav-toggle span {
-        background-color: var(--color-text-light);
-    }
-
-    .mobile-nav-toggle span:nth-child(1) {
-        top: 0;
-    }
-
-    .mobile-nav-toggle span:nth-child(2) {
-        top: 10px;
-    }
-
-    .mobile-nav-toggle.is-active span:nth-child(1) {
-        top: 10px;
-        transform: rotate(45deg);
-    }
-
-    .mobile-nav-toggle.is-active span:nth-child(2) {
-        top: 10px;
-        transform: rotate(-45deg);
-    }
-
-    .mobile-nav {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-dark);
-        color: var(--color-light);
-        z-index: 999;
-        transform: translateY(-100%);
-        transition: transform 0.5s cubic-bezier(0.8, 0, 0.2, 1);
-    }
-
-    .mobile-nav.is-active {
-        transform: translateY(0);
-    }
-
-    .mobile-nav-link {
-        font-family: var(--font-heading);
-        font-size: clamp(2rem, 10vw, 3rem);
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .mobile-nav.is-active .mobile-nav-link {
-        opacity: 1;
-        transform: translateY(0);
-        transition-delay: 0.3s;
-    }
-
-    .mobile-nav-cta {
-        margin-top: 2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        padding: 0.8rem 2rem;
-        border: 1px solid var(--color-light);
-        border-radius: 50px;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        transition-delay: 0.5s;
-    }
-
-    .mobile-nav.is-active .mobile-nav-cta {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-@media (max-width: 768px) {
-    body {
-        cursor: default;
-    }
-
-    .cursor-outline,
-    .cursor-dot,
-    .project-hover-image,
-    #ambient-light,
-    .bg-graphic,
-    .hero-graphic,
-    .about-graphic-tag,
-    .works-graphic-line,
-    .contact-graphic-blob,
-    #hero-grid-container,
-    .hero-blob,
-    .symbol-container {
-        display: none;
-    }
-
-    .section-padding {
-        padding: 6rem 5vw;
-    }
-
-    .project-item {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .project-number,
-    .project-description,
-    .project-arrow {
-        display: none;
-    }
-
-    .about-layout {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .about-text-content {
-        order: 2;
-    }
-
-    .about-skills-content {
-        order: 1;
-    }
-}
-
-#hero-grid-container {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    grid-template-columns: repeat(20, 1fr);
-    grid-template-rows: repeat(20, 1fr);
-    z-index: 1;
-    /* Updated z-index */
-    opacity: 0.5;
-}
-
-.hero-blob {
-    position: absolute;
-    opacity: 0;
-    z-index: 2;
-    /* Updated z-index */
-    color: var(--hero-graphic-color-2);
-    will-change: transform;
-}
-
-.hero-graphic {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 3;
-    /* Updated z-index */
-    background-color: transparent;
-    border: none;
-    will-change: transform;
-}
-
+/* --- Make hero blobs and graphics visible and behind content */
+.hero-blob,
+.hero-graphic,
+#hero-grid-container,
 .symbol-container {
+    opacity: 0.18;
+    display: block;
+    z-index: 1;
     position: absolute;
-    inset: 0;
     pointer-events: none;
-    z-index: 4;
-    /* Updated z-index */
+}
+
+/* Ensure main heading and subtext are above graphics */
+.hero-section .main-heading,
+.hero-section .hero-subtext {
+    position: relative;
+    z-index: 10;
 }
 
 /* ==========================================================================
@@ -1314,19 +1139,10 @@ header.main-header.header-is-inverted .nav-cta-button:hover {
     }
 
     .cursor-outline,
-    .cursor-dot,
-    .project-hover-image,
-    #ambient-light,
-    .bg-graphic,
-    .hero-graphic,
-    .about-graphic-tag,
-    .works-graphic-line,
-    .contact-graphic-blob,
-    #hero-grid-container,
-    .hero-blob,
-    .symbol-container {
+    .cursor-dot {
         display: none;
     }
+    /* Remove display: none from all other graphics! */
 
     .section-padding {
         padding: 6rem 5vw;
@@ -1407,30 +1223,6 @@ header.main-header.header-is-inverted .nav-cta-button:hover {
     /* Reduces contact heading size to prevent words from being cut */
     .contact-title {
         font-size: clamp(2rem, 9vw, 3rem);
-    }
-}
-
-/* ==========================================================================
-   FINAL MOBILE FONT SIZE FIX
-   ========================================================================== */
-
-/* This targets mobile phones specifically (screens 480px and narrower) */
-@media (max-width: 480px) {
-
-    /* Reduces hero heading size to prevent wrapping */
-    .main-heading {
-        font-size: clamp(2rem, 10vw, 2.8rem);
-        letter-spacing: -0.05em;
-    }
-
-    /* Reduces about section heading size */
-    .about-intro {
-        font-size: clamp(1.5rem, 5vw, 1.8rem);
-    }
-
-    /* Reduces contact heading size to prevent wrapping */
-    .contact-title {
-        font-size: clamp(2rem, 8vw, 3rem);
     }
 }
 
@@ -1557,3 +1349,206 @@ header.main-header.header-is-inverted .nav-cta-button:hover {
         box-shadow: 0 0 0 30px rgba(59, 130, 246, 0);
     }
 }
+
+/* --- EXTRA HERO BLOBS & SHAPES --- */
+.hero-blob.extra-1 {
+    position: absolute;
+    width: 40vw;
+    max-width: 600px;
+    height: 40vw;
+    max-height: 600px;
+    top: 10%;
+    left: 60%;
+    background: var(--hero-graphic-color-2);
+    border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%;
+    opacity: 0.15;
+    z-index: 1;
+    animation: float-blob-1 18s ease-in-out infinite alternate;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.hero-blob.extra-2 {
+    position: absolute;
+    width: 35vw;
+    max-width: 500px;
+    height: 35vw;
+    max-height: 500px;
+    top: 60%;
+    left: 5%;
+    background: var(--hero-graphic-color-1);
+    border-radius: 60% 40% 55% 45% / 45% 55% 60% 40%;
+    opacity: 0.18;
+    z-index: 1;
+    animation: float-blob-2 22s ease-in-out infinite alternate-reverse;
+    filter: blur(1.5px);
+    pointer-events: none;
+}
+
+.hero-blob.extra-3 {
+    position: absolute;
+    width: 30vw;
+    max-width: 400px;
+    height: 30vw;
+    max-height: 400px;
+    top: 35%;
+    left: 75%;
+    background: var(--hero-graphic-color-3);
+    border-radius: 50% 60% 40% 50% / 60% 40% 50% 60%;
+    opacity: 0.13;
+    z-index: 1;
+    animation: float-blob-3 25s ease-in-out infinite alternate;
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+/* Keyframes for floating blobs */
+@keyframes float-blob-1 {
+    0% { transform: translateY(0) scale(1) rotate(0deg);}
+    50% { transform: translateY(-30px) scale(1.05) rotate(8deg);}
+    100% { transform: translateY(0) scale(1) rotate(0deg);}
+}
+@keyframes float-blob-2 {
+    0% { transform: translateY(0) scale(1) rotate(0deg);}
+    50% { transform: translateY(40px) scale(0.97) rotate(-10deg);}
+    100% { transform: translateY(0) scale(1) rotate(0deg);}
+}
+@keyframes float-blob-3 {
+    0% { transform: translateY(0) scale(1) rotate(0deg);}
+    50% { transform: translateY(-20px) scale(1.08) rotate(12deg);}
+    100% { transform: translateY(0) scale(1) rotate(0deg);}
+}
+
+/* Make sure blobs are visible in hero section */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Responsive: Hide extra blobs on mobile */
+@media (max-width: 768px) {
+    .hero-blob.extra-1,
+    .hero-blob.extra-2,
+    .hero-blob.extra-3 {
+        display: none;
+    }
+}
+
+/* --- EXTRA ABSTRACT SHAPES FOR HERO --- */
+.hero-graphic.sketch-1 {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    width: 180px;
+    height: 180px;
+    border: 2px dashed var(--color-accent);
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    opacity: 0.13;
+    z-index: 1;
+    transform: rotate(-12deg);
+    pointer-events: none;
+}
+
+.hero-graphic.sketch-2 {
+    position: absolute;
+    top: 65%;
+    left: 55%;
+    width: 120px;
+    height: 120px;
+    border: 2px dotted var(--color-muted);
+    border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%;
+    opacity: 0.15;
+    z-index: 1;
+    transform: rotate(18deg);
+    pointer-events: none;
+}
+
+.hero-graphic.sketch-3 {
+    position: absolute;
+    top: 40%;
+    left: 80%;
+    width: 90px;
+    height: 90px;
+    background: repeating-linear-gradient(
+        135deg,
+        var(--color-accent) 0 2px,
+        transparent 2px 8px
+    );
+    border-radius: 40% 60% 50% 50% / 60% 40% 50% 50%;
+    opacity: 0.10;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-graphic.sketch-4 {
+    position: absolute;
+    top: 75%;
+    left: 25%;
+    width: 140px;
+    height: 140px;
+    border: 2px solid var(--color-muted);
+    border-radius: 50%;
+    opacity: 0.12;
+    z-index: 1;
+    transform: rotate(30deg);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   9. FINAL TOUCHES & BUG FIXES
+   ========================================================================== */
+
+/* --- PREVENT BODY SCROLL ON PRELOADER --- */
+#preloader body {
+    overflow: hidden;
+}
+
+/* --- REMOVE FOCUS OUTLINE FOR AESTHETICS --- */
+*:focus {
+    outline: none;
+}
+
+/* --- SMOOTH SCROLLING FOR SAFARI --- */
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* --- FIXED POSITIONING FOR MOBILE SAFETY --- */
+@media (max-width: 768px) {
+    .main-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+    }
+
+    .mobile-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 998;
+    }
+
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+    }
+}
+
+/* --- TEMPORARY DEBUGGING STYLES --- */
+/* Remove these in the final version */
+/* body {
+    background-color: rgba(255, 0, 0, 0.1);
+} */
+
+/* ==========================================================================
+   END OF STYLES
+   ========================================================================== */
