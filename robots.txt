@@ -1,0 +1,6 @@
+# Allow all web crawlers to access all content.
+User-agent: *
+Disallow:
+
+# Provide the location of the sitemap.
+Sitemap: https://kuberbassi.vercel.app/sitemap.xml
